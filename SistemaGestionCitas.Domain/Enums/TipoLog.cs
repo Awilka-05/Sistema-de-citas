@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Enums
 {
-    public enum TipoCorreo
+    public enum TipoLog
     {
-        Confirmacion,
-        Recordatorio,
+        Reserva,
         Cancelacion,
-        CambioEstado
+        Login,
+        Error,
+        Configuracion,
+        GeneracionSlots
     }
 }
