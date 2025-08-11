@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Entities
 {
-    internal class Servicio
+    public class Servicio
     {
+        public int IdServicio { get; set; }
+        public string Nombre { get; set; } = null!;
+        public string? Descripcion { get; set; }
+        public int DuracionMinutos { get; set; } = 15;
+        public bool Activo { get; set; } = true;
+        public ICollection<ConfiguracionTurno>? ConfiguracionesTurno { get; set; }
     }
 }

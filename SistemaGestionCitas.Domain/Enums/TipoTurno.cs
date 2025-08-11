@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Enums
 {
-    internal class TipoTurno
+    public enum TipoTurno
     {
+        Matutino = 1,
+        Vespertino = 2
     }
 }
+

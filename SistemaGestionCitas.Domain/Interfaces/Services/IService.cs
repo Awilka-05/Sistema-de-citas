@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Domain.Enums
+namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public enum RolUsuario
+    internal interface IService
     {
-        Admin = 1,
-        Usuario = 2
-       
     }
-    
 }
