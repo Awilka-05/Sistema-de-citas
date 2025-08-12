@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaGestionCitas.Domain\SistemaGestionCitas.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

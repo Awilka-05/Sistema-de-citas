@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.DTOs.Responses
 {
-    internal class LogSistemaResponseDto
+    public class LogSistemaResponseDto
     {
     }
 }

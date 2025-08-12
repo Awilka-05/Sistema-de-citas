@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
 {
-    internal class SlotHorarioDto
+    public class SlotHorarioDto
     {
+
     }
 }

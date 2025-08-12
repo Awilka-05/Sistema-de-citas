@@ -11,7 +11,7 @@ namespace SistemaGestionCitas.Domain.Entities
         public int IdCorreo { get; set; }
         public int IdUsuario { get; set; }
         public int? IdCita { get; set; }
-        public string Destinatario { get; set; } = null!;
+        public string? Destinatario { get; set; } 
         public string Asunto { get; set; } = null!;
         public string Cuerpo { get; set; } = null!;
         public string Tipo { get; set; } = null!;

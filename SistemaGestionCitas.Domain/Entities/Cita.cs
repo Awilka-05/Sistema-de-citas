@@ -15,10 +15,8 @@ namespace SistemaGestionCitas.Domain.Entities
         public string CodigoCita { get; set; } = null!;
         public EstadoCita Estado { get; set; } = EstadoCita.Pendiente;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
-        public DateTime FechaActualizacion { get; set; } = DateTime.Now;
+        public DateTime FechaActualizacion { get; set; } 
         public string? Observaciones { get; set; }
-
-      
         public Usuario? Usuario { get; set; }
         public SlotHorario? SlotHorario { get; set; }
         public ICollection<CorreoPendiente>? CorreosPendientes { get; set; }
