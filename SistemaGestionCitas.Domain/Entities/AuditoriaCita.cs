@@ -10,12 +10,12 @@ namespace SistemaGestionCitas.Domain.Entities
     {
         public int IdAuditoria { get; set; }
         public int IdCita { get; set; }
-        public string? EstadoAnterior { get; set; }
+        public string EstadoAnterior { get; set; } = null!;
         public string EstadoNuevo { get; set; } = null!;
-        public int? IdUsuarioCambio { get; set; }
-        public string? Motivo { get; set; }
+        public int IdUsuarioCambio { get; set; }
+        public string Motivo { get; set; } = null!;
         public DateTime FechaCambio { get; set; } = DateTime.Now;
-        public Cita? Cita { get; set; }
-        public Usuario? UsuarioCambio { get; set; }
+        public Cita Cita { get; set; } = null!;
+        public Usuario UsuarioCambio { get; set; } = null!;
     }
 }

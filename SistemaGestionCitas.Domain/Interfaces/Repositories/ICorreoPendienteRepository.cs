@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.Interfaces.Repositories
 {
-    internal interface
-    }
+  
 }

@@ -16,6 +16,6 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         public int IdSlot { get; set; }
 
         [StringLength(500, ErrorMessage = "Las observaciones no pueden exceder 500 caracteres")]
-        public string? Observaciones { get; set; }
+        public string Observaciones { get; set; } = null!;
     }
 }

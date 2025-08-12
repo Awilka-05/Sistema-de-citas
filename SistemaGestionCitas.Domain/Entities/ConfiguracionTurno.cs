@@ -19,8 +19,8 @@ namespace SistemaGestionCitas.Domain.Entities
         public int DuracionSlotMinutos { get; set; } = 15;
         public bool Activo { get; set; } = true;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
-        public Servicio? Servicio { get; set; }
-        public ICollection<SlotHorario>? SlotsHorario { get; set; }
+        public Servicio Servicio { get; set; } = null!;
+        public ICollection<SlotHorario> SlotsHorario { get; set; } = null!;
 
     }
 }
