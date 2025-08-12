@@ -25,7 +25,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 
         [Phone(ErrorMessage = "El formato del teléfono no es válido")]
         [StringLength(20, ErrorMessage = "El teléfono no puede exceder los 20 caracteres")]
-        public string? Telefono { get; set; }
+        public string Telefono { get; set; } = null!;
 
         [Required(ErrorMessage = "La contraseña es requerida")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener entre 6 y 100 caracteres")]

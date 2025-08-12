@@ -13,7 +13,7 @@ namespace SistemaGestionCitas.Domain.Entities
         public string Nombre { get; set; } = null!;
         public string Apellido { get; set; } = null!;
         public string Correo { get; set; } = null!;
-        public string? Telefono { get; set; }
+        public string Telefono { get; set; } = null!;
         public string Cedula { get; set; } = null!;
         public string Contrasena { get; set; } = null!;
 
@@ -22,8 +22,8 @@ namespace SistemaGestionCitas.Domain.Entities
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public bool Activo { get; set; } = true;
 
-        public ICollection<Cita>? Citas { get; set; }
-        public ICollection<CorreoPendiente>? CorreosPendientes { get; set; }
+        public ICollection<Cita> Citas { get; set; } = null!;
+        public ICollection<CorreoPendiente> CorreosPendientes { get; set; } = null!;
 
     }
 

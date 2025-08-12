@@ -8,9 +8,9 @@ namespace SistemaGestionCitas.Domain.Enums
 {
     public enum TipoCorreo
     {
-        Confirmacion,
-        Recordatorio,
-        Cancelacion,
+        Confirmacion = 1,
+        Cancelacion = 2,
+        Recordatorio = 3,
         CambioEstado
     }
 }

@@ -15,7 +15,7 @@ namespace SistemaGestionCitas.Domain.Entities
         public int CupoMaximo { get; set; }
         public int CupoOcupado { get; set; } = 0;
         public bool Activo { get; set; } = true;
-        public ConfiguracionTurno? ConfiguracionTurno { get; set; }
-        public ICollection<Cita>? Citas { get; set; }
+        public ConfiguracionTurno ConfiguracionTurno { get; set; } = null!;
+        public ICollection<Cita> Citas { get; set; } = null!;
     }
 }
