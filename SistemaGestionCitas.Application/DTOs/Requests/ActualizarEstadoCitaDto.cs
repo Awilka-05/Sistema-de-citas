@@ -10,10 +10,8 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 {
     public class ActualizarEstadoCitaDto
     {
-        [Required(ErrorMessage = "El id de la cita es requerido")]
-        public int IdCita { get; set; }
         [Required(ErrorMessage = "El estado es requerido")]
-        public string NuevaEstado { get; set; } = null!;
+        public EstadoCita Estado { get; set; }
 
     }
 }
