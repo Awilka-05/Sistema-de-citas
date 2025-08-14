@@ -9,14 +9,20 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 {
     public class ConfiguracionTurnoDto
     {
-        [Required(ErrorMessage = "La hora de inicio es requerida")]
-        public TimeSpan HoraInicio { get; set; }
+        [Required(ErrorMessage = "La fecha de inicio es requerida")]
+        public DateTime FechaInicio { get; set; }
 
-        [Required(ErrorMessage = "La hora de fin es requerida")]
-        public TimeSpan HoraFin { get; set; }
+        [Required(ErrorMessage = "La fecha de fin es requerida")]
+        public DateTime FechaFin { get; set; }
 
         [Required(ErrorMessage = "La duración del slot es requerida")]
-        public int DuracionSlotMinutos { get; set; }
-        public bool Activo { get; set; }
+        public int DuracionMinutos { get; set; }
+
+        [Required(ErrorMessage = "El ID del horario es requerido")]
+        public short HorariosId { get; set; }
+
+        [Required(ErrorMessage = "La duración de estaciones es requerida")]
+        public int CantidadEstaciones { get; set; }
+        
     }
 }

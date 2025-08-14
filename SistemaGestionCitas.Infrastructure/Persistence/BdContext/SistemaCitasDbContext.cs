@@ -60,10 +60,10 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
                 .IsRowVersion();
 
             modelBuilder.Entity<Usuario>().HasKey(u => u.IdUsuario);
-            modelBuilder.Entity<Servicio>().HasKey(s => s.Id);
-            modelBuilder.Entity<Horario>().HasKey(h => h.Id);
-            modelBuilder.Entity<Lugar>().HasKey(l => l.Id);
-            modelBuilder.Entity<ConfiguracionTurno>().HasKey(ct => ct.Id);
+            modelBuilder.Entity<Servicio>().HasKey(s => s.ServicioId);
+            modelBuilder.Entity<Horario>().HasKey(h => h.HorarioId);
+            modelBuilder.Entity<Lugar>().HasKey(l => l.LugarId);
+            modelBuilder.Entity<ConfiguracionTurno>().HasKey(ct => ct.TurnoId);
             modelBuilder.Entity<Cita>().HasKey(c => c.IdCita);
 
             modelBuilder.Entity<Usuario>().HasData(

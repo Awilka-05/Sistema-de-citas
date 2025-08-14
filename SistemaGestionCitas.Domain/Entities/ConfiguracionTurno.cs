@@ -8,7 +8,7 @@ namespace SistemaGestionCitas.Domain.Entities
 {
     public class ConfiguracionTurno
     {
-        public int Id { get; set; }
+        public int TurnoId { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public short HorariosId { get; set; }
