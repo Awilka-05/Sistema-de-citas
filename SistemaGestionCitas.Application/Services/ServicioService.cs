@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Application.UseCases
+namespace SistemaGestionCitas.Application.Services
 {
-    internal class CancelarCitaService
+    internal class ServicioService
     {
     }
 }

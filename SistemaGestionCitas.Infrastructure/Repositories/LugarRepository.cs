@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Application.Interfaces.Repositories
+namespace SistemaGestionCitas.Infrastructure.Repositories
 {
-    internal interface ISlotHorarioRepository
+    internal class LugarRepository
     {
     }
 }

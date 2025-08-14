@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Application.Interfaces.Repositories
+namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    internal interface ILogSistemaRepository
+    internal interface IRegistrarUsuario
     {
     }
 }

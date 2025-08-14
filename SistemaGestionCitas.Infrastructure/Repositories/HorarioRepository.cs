@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Infrastructure.Repositories
 {
-    internal class CorreoPendienteRepository
+    internal class HorarioRepository
     {
     }
 }
