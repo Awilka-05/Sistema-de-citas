@@ -17,6 +17,6 @@ namespace SistemaGestionCitas.Application.DTOs.Responses
         public DateTime FechaActualizacion { get; set; }
         public string Observaciones { get; set; } = null!;
         public UsuarioResponseDto Usuario { get; set; } = null!;
-        public SlotHorarioResponseDto SlotHorario { get; set; } = null!;
+        public HorarioResponseDto SlotHorario { get; set; } = null!;
     }
 }
