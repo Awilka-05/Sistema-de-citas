@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Infrastructure.Repositories
+namespace SistemaGestionCitas.Application.Services
 {
-    internal class AuditoriaCitaRepository
+    internal class CitaService
     {
     }
 }
