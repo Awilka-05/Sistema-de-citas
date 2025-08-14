@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>{{EmailTitle}}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f5f5f5; font-family:Arial, sans-serif;">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f5f5f5; padding:20px 0;">
+  <tr>
+    <td align="center">
+      <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#ffffff; border-radius:8px; overflow:hidden;">
+
+        <tr>
+          <td align="center" style="background-color:#ef4444; padding:10px 10px; color:#ffffff;"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:40px;">
+            <h1 style="font-size:24px; font-weight:bold; color:#1f2937; margin:0 0 10px 0;">Cita Cancelada</h1>
+            <p style="font-size:16px; color:#6b7280; margin:0 0 30px 0;">Tu cita ha sido cancelada.</p>
+
+            <p style="font-size:15px; color:#4b5563; line-height:1.5; margin:0 0 30px 0;">
+              Hola <strong>{{UserName}}</strong>, lamentamos informarte que tu cita ha sido cancelada. Si lo deseas, puedes agendar una nueva en cualquier momento.
+            </p>
+
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb; border-radius:8px; background-color:#f9fafb;">
+              <tr>
+                <td colspan="2" style="padding:15px; font-weight:bold; color:#1f2937; font-size:16px; border-bottom:1px solid #e5e7eb;">Detalles de tu Cita</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Servicio:</td>
+                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{ServiceName}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Fecha:</td>
+                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{AppointmentDate}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Hora:</td>
+                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{AppointmentTime}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Duración:</td>
+                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{ServiceDuration}} minutos</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 15px; font-weight:bold; color:#374151;">ID de Cita:</td>
+                <td style="padding:10px 15px; color:#6b7280;">#{{AppointmentId}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="background-color:#f9fafb; text-align:center; padding:20px; font-size:12px; color:#9ca3af;">
+            © 2025 Sistema de Citas. Proyecto final programacion 2.
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
