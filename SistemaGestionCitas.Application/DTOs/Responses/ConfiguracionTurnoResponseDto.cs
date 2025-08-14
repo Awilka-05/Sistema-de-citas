@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Application.DTOs.Responses
 {
     public class ConfiguracionTurnoResponseDto
     {
-        public int IdConfiguracion { get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan HoraFin { get; set; }
-        public int DuracionSlotMinutos { get; set; }
-        public bool Activo { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaActualizacion { get; set; }
+        public int TurnoId { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public short HorariosId { get; set; }
+        public int CantidadEstaciones { get; set; }
+        public int DuracionMinutos { get; set; }
+        public bool AunAceptaCitas { get; set; }
+        public Horario Horario { get; set; } = null!;
     }
 }

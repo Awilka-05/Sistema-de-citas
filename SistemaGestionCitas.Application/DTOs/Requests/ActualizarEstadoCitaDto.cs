@@ -13,7 +13,5 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         [Required(ErrorMessage = "El estado es requerido")]
         public EstadoCita Estado { get; set; }
 
-        [StringLength(500, ErrorMessage = "Las observaciones no pueden exceder 500 caracteres")]
-        public string Observaciones { get; set; } = null!;
     }
 }

@@ -8,7 +8,7 @@ namespace SistemaGestionCitas.Domain.Entities
 {
     public class Servicio
     {
-        public short Id { get; set; }
+        public short ServicioId { get; set; }
         public string Nombre { get; set; } = null!;
         public decimal Precio { get; set; }
 

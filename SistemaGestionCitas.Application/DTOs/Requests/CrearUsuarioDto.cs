@@ -13,10 +13,9 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         [Required(ErrorMessage = "El nombre es requerido")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "El nombre debe tener entre 2 y 100 caracteres")]
         public string Nombre { get; set; } = null!;
-
-        [Required(ErrorMessage = "El apellido es requerido")]
-        [StringLength(100, MinimumLength = 2, ErrorMessage = "El apellido debe tener entre 2 y 100 caracteres")]
-        public string Apellido { get; set; } = null!;
+        [Required(ErrorMessage = "La fecha de nacimiento es necesaria")]
+        [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido")]
+        public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "El email es requerido")]
         [EmailAddress(ErrorMessage = "El formato del email no es válido")]
@@ -32,7 +31,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         public string Contrasena { get; set; } = null!;
 
         [Required(ErrorMessage = "La cédula es requerida")]
-        [StringLength(20, ErrorMessage = "La cédula no puede exceder los 11 caracteres")]
+        [StringLength(11, ErrorMessage = "La cédula no puede exceder los 11 caracteres")]
         public string Cedula { get; set; } = null!;
 
         [Required(ErrorMessage = "El rol es requerido")]
