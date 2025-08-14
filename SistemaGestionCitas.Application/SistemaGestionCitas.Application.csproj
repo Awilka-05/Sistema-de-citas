@@ -10,4 +10,8 @@
     <ProjectReference Include="..\SistemaGestionCitas.Domain\SistemaGestionCitas.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.8" />
+  </ItemGroup>
+
 </Project>
