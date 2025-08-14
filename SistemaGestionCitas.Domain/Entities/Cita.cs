@@ -11,15 +11,15 @@ namespace SistemaGestionCitas.Domain.Entities
     {
         public int IdCita { get; set; }
         public int IdUsuario { get; set; }
-        public int IdSlot { get; set; }
-        public string CodigoCita { get; set; } = null!;
-        public EstadoCita Estado { get; set; } = EstadoCita.Pendiente;
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
-        public DateTime FechaActualizacion { get; set; } 
-        public string Observaciones { get; set; } = null!;
+        public int TurnoId { get; set; }
+        public short LugarId { get; set; }
+        public short ServicioId { get; set; }
+        public EstadoCita Estado { get; set; } 
+        public byte[] RowVersion { get; set; } = null!;
+
         public Usuario Usuario { get; set; } = null!;
-        public SlotHorario SlotHorario { get; set; } = null!;
-        public ICollection<CorreoPendiente> CorreosPendientes { get; set; } = null!;
-        public ICollection<AuditoriaCita> AuditoriasEstado { get; set; } = null!;
+        public ConfiguracionTurno ConfiguracionTurno { get; set; } = null!;
+        public Lugar Lugar { get; set; } = null!;
+        public Servicio Servicio { get; set; } = null!;
     }
 }

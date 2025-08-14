@@ -8,9 +8,8 @@ namespace SistemaGestionCitas.Domain.Enums
 {
     public enum RolUsuario
     {
-        Admin = 1,
-        Usuario = 2
-       
+        Admin,
+        Usuario      
     }
     
 }

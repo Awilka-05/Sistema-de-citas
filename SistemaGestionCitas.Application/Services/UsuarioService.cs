@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestionCitas.Application.Interfaces.Repositories
+namespace SistemaGestionCitas.Application.Services
 {
-  
+    internal class UsuarioService
+    {
+    }
 }
