@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SistemaGestionCitas.Domain\SistemaGestionCitas.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Correo\Plantillas\" />
+  </ItemGroup>
+
 </Project>
