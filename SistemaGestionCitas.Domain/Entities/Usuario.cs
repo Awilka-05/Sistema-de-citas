@@ -35,9 +35,9 @@ namespace SistemaGestionCitas.Domain.Entities
             Activo = true;
             Citas = new List<Cita>();
         }
-
-        public Usuario()
-        {   
-        }
+        // Constructor vacío para EF Core, ya no es necesario
+        //public Usuario()
+        //{   
+        //}
     }
 }

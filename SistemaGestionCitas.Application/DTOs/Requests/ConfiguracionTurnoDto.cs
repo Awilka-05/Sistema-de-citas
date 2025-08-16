@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using SistemaGestionCitas.Application.Validators;
 
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
@@ -12,6 +13,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 
         [Required(ErrorMessage = "La fecha de fin es requerida")]
         [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido")]
+        [FechaValida("FechaInicio", ErrorMessage = "La fecha de finalización debe ser posterior a la fecha de inicio.")]
         public DateTime FechaFin { get; set; }
 
         [Required(ErrorMessage = "La duración del slot es requerida")]

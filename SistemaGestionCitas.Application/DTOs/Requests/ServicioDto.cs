@@ -12,6 +12,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         public string Nombre { get; set; } = null!;
 
         [Required(ErrorMessage = "El precio del servicio es necesario")]
+        [Range(0, 10000, ErrorMessage = "El precio no es valido")]
         public decimal Precio { get; set; }
 
         [Required(ErrorMessage = "La duración del servicio es necesaria")]

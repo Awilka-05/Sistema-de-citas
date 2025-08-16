@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.Validators
 {
-    internal class CrearCitaValidator
+    internal class CitaValidator
     {
     }
 }
