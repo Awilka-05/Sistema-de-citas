@@ -7,6 +7,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
     public class CrearUsuarioDto
     {
         [Required(ErrorMessage = "El nombre es requerido")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "El nombre usuario solo puede contener letras y espacios.")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "El nombre debe tener entre 2 y 100 caracteres")]
         public string Nombre { get; set; } = null!;
         [Required(ErrorMessage = "La fecha de nacimiento es necesaria")]

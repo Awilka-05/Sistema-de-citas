@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IService<T> where T : class
+    public interface IService<T,Ttype> where T : class
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Ttype id);
         Task<IEnumerable<T>> GetAllAsync();
+        Task AddAsync(T entity);
         Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Ttype id);
         
     }
 }

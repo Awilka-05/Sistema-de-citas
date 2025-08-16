@@ -1,7 +1,10 @@
 ﻿
+using SistemaGestionCitas.Domain.Entities;
+
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    internal interface IRegistrarUsuario
+    public interface IRegistrarUsuario
     {
+        Task<Usuario> RegistrarUsuarioAsync(Usuario usuario);
     }
 }

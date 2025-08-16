@@ -7,8 +7,9 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IReservarCitaService
+    public interface IUsuarioService
     {
-        Task<Cita>ReservarCitaAsync(Cita cita);
+        Task<Usuario> GetByIdAsync(int id);
+        Task<IEnumerable<Usuario>> GetAllAsync();
     }
 }

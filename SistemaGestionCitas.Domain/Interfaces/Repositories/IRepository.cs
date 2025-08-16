@@ -2,12 +2,12 @@
 
 namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T, Ttype> where T : class
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Ttype id);
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Ttype id);
     }
 }

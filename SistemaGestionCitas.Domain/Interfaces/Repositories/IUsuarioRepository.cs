@@ -2,7 +2,7 @@
 
 namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IUsuarioRepository : IRepository<Usuario, int>
     {
         Task<Usuario> GetByCorreoAsync(string correo);
         Task<bool> ExisteCedulaAsync(string cedula);

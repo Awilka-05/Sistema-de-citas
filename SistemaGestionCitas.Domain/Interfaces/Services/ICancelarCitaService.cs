@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    internal interface ICancelarCitaService
+    public interface ICancelarCitaService
     {
+        Task CancelarCitaAsync(int id);
     }
 }

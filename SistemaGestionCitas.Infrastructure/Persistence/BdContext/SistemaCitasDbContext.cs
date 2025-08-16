@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
-using SistemaGestionCitas.Domain.Enums;
-using SistemaGestionCitas.Domain.Value_Objects;
+
 
 namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
 {
