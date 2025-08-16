@@ -1,5 +1,4 @@
-﻿u
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using SistemaGestionCitas.Domain.Enums;
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
