@@ -8,6 +8,6 @@ namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
     public interface ICancelarCitaService
     {
-        Task CancelarCitaAsync(int id);
+        Task CancelarCitaAsync(int citaId, int usuarioId);
     }
 }

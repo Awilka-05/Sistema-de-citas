@@ -18,11 +18,6 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 
         [IDValido(ErrorMessage = "El ID del Servicio no es válido.")]
         public short ServicioId { get; set; }
-        [Required(ErrorMessage = "El estado de la cita es necesario")]
-        public EstadoCita Estado { get; set; }
-
-        [Required(ErrorMessage = "El ID del slot es requerido")]
-        public int IdSlot { get; set; }
-
+        
     }
 }
