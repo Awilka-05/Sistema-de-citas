@@ -9,12 +9,14 @@ namespace SistemaGestionCitas.Application.DTOs.Responses
 {
     public class CitaResponseDto
     {
-        public int IdCita { get; set; }
-        public string Estado { get; set; } = null!;
-
+        public int IdUsuario { get; set; }
+        public int IdSlot { get; set; }
+        public string CodigoCita { get; set; } = null!;
+        public EstadoCita Estado { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaActualizacion { get; set; }
+        public string Observaciones { get; set; } = null!;
         public UsuarioResponseDto Usuario { get; set; } = null!;
-        public ConfiguracionTurnoResponseDto ConfiguracionTurno { get; set; } = null!;
-        public LugarResponseDto Lugar { get; set; } = null!;
-        public ServicioResponseDto Servicio { get; set; } = null!;
+        public HorarioResponseDto SlotHorario { get; set; } = null!;
     }
 }

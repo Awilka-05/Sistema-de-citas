@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Enums;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IReservarCitaService
+    public interface ICitaService
     {
-        Task<Cita>ReservarCitaAsync(Cita cita);
+        Task<IEnumerable<Cita>> GetAllAsync();
+        Task<Cita?> GetByIdAsync(int id);
+        Task<IEnumerable<Cita>> GetByEstadoAsync(EstadoCita estado);
     }
 }

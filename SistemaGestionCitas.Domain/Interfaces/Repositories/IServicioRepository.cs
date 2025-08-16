@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SistemaGestionCitas.Domain.Entities;
 
-namespace SistemaGestionCitas.Domain.Interfaces.Services
+namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IReservarCitaService
+    public interface IServicioRepository : IRepository<Servicio,short>
     {
-        Task<Cita>ReservarCitaAsync(Cita cita);
     }
 }

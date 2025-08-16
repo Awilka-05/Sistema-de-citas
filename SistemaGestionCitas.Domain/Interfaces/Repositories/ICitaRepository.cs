@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SistemaGestionCitas.Domain.Entities;
-using SistemaGestionCitas.Domain.Interfaces.Repositories;
+﻿using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Enums;
 
-namespace SistemaGestionCitas.Application.Interfaces.Repositories
+namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface ICitaRepository : IRepository<Cita>
+    public interface ICitaRepository : IRepository<Cita, int>
     {
+        Task<IEnumerable<Cita>> GetCitasByUsuarioAsync(int usuarioId);
         Task<IEnumerable<Cita>> GetByFechaAsync(DateTime fecha);
-        Task<bool> EstaDisponibleAsync(int idSlot);
+        Task<IEnumerable<Cita>> GetByEstadoAsync(EstadoCita estado);
     }
+   
 }

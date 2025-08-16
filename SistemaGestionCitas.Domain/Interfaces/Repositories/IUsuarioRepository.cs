@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SistemaGestionCitas.Domain.Entities;
-using SistemaGestionCitas.Domain.Interfaces.Repositories;
+﻿using SistemaGestionCitas.Domain.Entities;
 
-namespace SistemaGestionCitas.Application.Interfaces.Repositories
+namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IUsuarioRepository : IRepository<Usuario, int>
     {
         Task<Usuario> GetByCorreoAsync(string correo);
         Task<bool> ExisteCedulaAsync(string cedula);

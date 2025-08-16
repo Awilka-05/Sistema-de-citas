@@ -7,8 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IReservarCitaService
+    public interface IHorarioService : IService<Horario,short>
     {
-        Task<Cita>ReservarCitaAsync(Cita cita);
     }
 }

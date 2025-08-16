@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
-using SistemaGestionCitas.Domain.Enums;
+
 
 namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
 {
     public class SistemaCitasDbContext : DbContext
     {
-
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Horario> Horarios { get; set; }
@@ -16,11 +15,11 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
 
         public SistemaCitasDbContext(DbContextOptions<SistemaCitasDbContext> options)
             : base(options)
-        {
-        }
+        { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Relaciones Cita
             modelBuilder.Entity<Cita>()
                 .HasOne(c => c.Usuario)
                 .WithMany(u => u.Citas)
@@ -46,19 +45,25 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
                 .WithMany(h => h.ConfiguracionesTurnos)
                 .HasForeignKey(ct => ct.HorariosId);
 
+            modelBuilder.Entity<Servicio>()
+                .Property(s => s.Precio)
+                .HasPrecision(18, 2);
+
+            // Conversiones enum a string
             modelBuilder.Entity<Usuario>()
-            .Property(u => u.Rol)
-            .HasConversion<string>();
+                .Property(u => u.Rol)
+                .HasConversion<string>();
 
             modelBuilder.Entity<Cita>()
-           .Property(c => c.Estado)
-           .HasConversion<string>();
+                .Property(c => c.Estado)
+                .HasConversion<string>();
 
-            // Configurar RowVersion para concurrencia
+            // RowVersion
             modelBuilder.Entity<Cita>()
                 .Property(c => c.RowVersion)
                 .IsRowVersion();
 
+            // Llaves primarias
             modelBuilder.Entity<Usuario>().HasKey(u => u.IdUsuario);
             modelBuilder.Entity<Servicio>().HasKey(s => s.ServicioId);
             modelBuilder.Entity<Horario>().HasKey(h => h.HorarioId);
@@ -66,23 +71,21 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
             modelBuilder.Entity<ConfiguracionTurno>().HasKey(ct => ct.TurnoId);
             modelBuilder.Entity<Cita>().HasKey(c => c.IdCita);
 
-            modelBuilder.Entity<Usuario>().HasData(
-            new Usuario
+            // Mapear Value Objects como Owned Types
+            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Nombre, n =>
             {
-                IdUsuario = 1,
-                Nombre = "Administrador",
-                Cedula = "12345678910",
-                Correo = "admin@dominio.com",
-                Contrasena = "123456",
-                Rol = RolUsuario.Admin,
-                FechaNacimiento = new DateTime(2000, 1, 1),
-                Activo = true,
-               
-            }
-            );
+                n.Property(x => x.Value).HasColumnName("Nombre");
+            });
+
+            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Cedula, c =>
+            {
+                c.Property(x => x.Value).HasColumnName("Cedula");
+            });
+
+            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Correo, e =>
+            {
+                e.Property(x => x.Value).HasColumnName("Correo");
+            });
         }
     }
 }
-
-
-
