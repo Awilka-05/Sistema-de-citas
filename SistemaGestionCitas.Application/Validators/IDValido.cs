@@ -21,19 +21,19 @@ namespace SistemaGestionCitas.Application.Validators
             {
                 if (intValue <= 0)
                 {
-                    return new ValidationResult(ErrorMessage ?? "El valor debe ser un número positivo.");
+                    return new ValidationResult(ErrorMessage ?? "El valor debe ser un numero positivo.");
                 }
             }
             else if (value is short shortValue)
             {
                 if (shortValue <= 0)
                 {
-                    return new ValidationResult(ErrorMessage ?? "El valor debe ser un número positivo.");
+                    return new ValidationResult(ErrorMessage ?? "El valor debe ser un numero positivo.");
                 }
             }
             else
             {
-                return new ValidationResult("El tipo de dato no es válido.");
+                return new ValidationResult("El tipo de dato no es valido.");
             }
             return ValidationResult.Success;
         }

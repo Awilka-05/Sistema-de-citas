@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SistemaGestionCitas.Application.DTOs.Requests;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Domain.Result_Pattern;

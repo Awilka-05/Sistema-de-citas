@@ -22,7 +22,7 @@ namespace SistemaGestionCitas.Application.Validators
         {
             var fechaFin = value as DateTime?;
 
-            // Obtener la propiedad de fecha de inicio del objeto que se está validando
+            // pa obtener la propiedad de fecha de inicio del objeto que se está validando
             var fechaInicioPropiedad = validationContext.ObjectType.GetProperty(_fechaInicioPropiedad);
 
             if (fechaInicioPropiedad == null)
