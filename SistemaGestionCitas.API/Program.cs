@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
+using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<SistemaCitasDbContext>(options =>
 // Add custom services
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+
+CorreoSender.SetConfiguration(builder.Configuration);
+
 builder.Logging.AddProvider(new SistemaGestionCitas.Application.Services.LoggerProvider(
     builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty));
 // Add Swagger
