@@ -2,14 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
+using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 
 namespace SistemaGestionCitas.Infrastructure.Repositories
 {
     public class LugarRepository : IRepository<Lugar, short>
     {
-        private readonly DbContext _context;
+        private readonly SistemaCitasDbContext _context;
 
-        public LugarRepository(DbContext context)
+        public LugarRepository(SistemaCitasDbContext context)
         {
             _context = context;
         }
@@ -28,7 +29,20 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
 
         public async Task UpdateAsync(Lugar entity)
         {
-            _context.Set<Lugar>().Update(entity);
+            var existingEntity = _context.Set<Lugar>()
+            .Local
+            .FirstOrDefault(e => e.LugarId == entity.LugarId);
+
+            if (existingEntity != null)
+            {
+ 
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                _context.Set<Lugar>().Update(entity);
+            }
+
             await _context.SaveChangesAsync();
         }
 

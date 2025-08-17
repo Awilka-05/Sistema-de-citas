@@ -2,8 +2,11 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Application.Services;
+using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Domain.Interfaces.Services;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
+using SistemaGestionCitas.Infrastructure.Repositories;
 using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,9 @@ builder.Services.AddDbContext<SistemaCitasDbContext>(options =>
 
 builder.Services.AddScoped<ILugarService, LugarService>();
 builder.Services.AddScoped<IServicioService, ServicioService>();
+
+builder.Services.AddScoped<IRepository<Lugar, short>, LugarRepository>();
+builder.Services.AddScoped<IRepository<Servicio, short>, ServicioRepository>();
 
 
 // Add custom services

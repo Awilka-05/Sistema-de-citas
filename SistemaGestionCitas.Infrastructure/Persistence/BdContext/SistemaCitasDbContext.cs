@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Value_Objects;
 
 
 namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
@@ -19,6 +20,52 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Lugar>().ToTable("lugar");
+
+            modelBuilder.Entity<Lugar>()
+                .Property(l => l.LugarId)
+                .HasColumnName("id");
+
+            modelBuilder.Entity<Lugar>()
+                .Property(l => l.Nombre)
+                .HasColumnName("nombre");
+
+            modelBuilder.Entity<Servicio>()
+                .ToTable("servicios") 
+                .HasKey(s => s.ServicioId); 
+
+            modelBuilder.Entity<Servicio>()
+                .Property(s => s.ServicioId)
+                .HasColumnName("id");
+
+            modelBuilder.Entity<Servicio>()
+                .Property(s => s.Nombre)
+                .HasColumnName("nombre");
+
+            modelBuilder.Entity<Servicio>()
+                .Property(s => s.Precio)
+                .HasColumnName("precio")
+                .HasPrecision(10, 2);
+
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Nombre)
+                .HasConversion(
+                    v => v.Value, 
+                    v => new Nombre(v)); 
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Cedula)
+                .HasConversion(
+                    v => v.Value,
+                    v => new Cedula(v));
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Correo)
+                .HasConversion(
+                    v => v.Value,
+                    v => new Correo(v));
+
             // Relaciones Cita
             modelBuilder.Entity<Cita>()
                 .HasOne(c => c.Usuario)
@@ -70,22 +117,6 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
             modelBuilder.Entity<Lugar>().HasKey(l => l.LugarId);
             modelBuilder.Entity<ConfiguracionTurno>().HasKey(ct => ct.TurnoId);
             modelBuilder.Entity<Cita>().HasKey(c => c.IdCita);
-
-            // Mapear Value Objects como Owned Types
-            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Nombre, n =>
-            {
-                n.Property(x => x.Value).HasColumnName("Nombre");
-            });
-
-            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Cedula, c =>
-            {
-                c.Property(x => x.Value).HasColumnName("Cedula");
-            });
-
-            modelBuilder.Entity<Usuario>().OwnsOne(u => u.Correo, e =>
-            {
-                e.Property(x => x.Value).HasColumnName("Correo");
-            });
         }
     }
 }

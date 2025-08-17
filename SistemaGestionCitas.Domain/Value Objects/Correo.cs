@@ -15,7 +15,7 @@ namespace SistemaGestionCitas.Domain.Value_Objects
 
         public string Value { get; }
 
-        private Correo(string value) => Value = value;
+        public Correo(string value) => Value = value;
 
         public static Result<Correo> Create(string value)
         {

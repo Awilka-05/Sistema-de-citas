@@ -15,7 +15,5 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         [Range(0, 10000, ErrorMessage = "El precio no es valido")]
         public decimal Precio { get; set; }
 
-        [Required(ErrorMessage = "La duración del servicio es necesaria")]
-        public int DuracionMinutos { get; set; } 
     }
 }

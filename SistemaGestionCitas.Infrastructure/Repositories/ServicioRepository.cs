@@ -2,19 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
+using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 
 namespace SistemaGestionCitas.Infrastructure.Repositories
 {
-    public class ServicioRepository : IRepository<Servicio, int>
+    public class ServicioRepository : IServicioRepository
     {
-        private readonly DbContext _context;
+        private readonly SistemaCitasDbContext  _context;
 
-        public ServicioRepository(DbContext context)
+        public ServicioRepository(SistemaCitasDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Servicio?> GetByIdAsync(int id) =>
+        public async Task<Servicio?> GetByIdAsync(short id) =>
             await _context.Set<Servicio>().FindAsync(id);
 
         public async Task<IEnumerable<Servicio>> GetAllAsync() =>
@@ -28,11 +29,25 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
 
         public async Task UpdateAsync(Servicio entity)
         {
-            _context.Set<Servicio>().Update(entity);
+            var existingEntity = _context.Set<Servicio>()
+            .Local
+            .FirstOrDefault(e => e.ServicioId == entity.ServicioId);
+
+            if (existingEntity != null)
+            {
+
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                _context.Set<Servicio>().Update(entity);
+            }
+
             await _context.SaveChangesAsync();
+
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(short id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)
