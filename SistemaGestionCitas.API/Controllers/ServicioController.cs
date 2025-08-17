@@ -8,6 +8,9 @@ namespace SistemaGestionCitas.API.Controllers
     [ApiController]
     public class ServicioController : ControllerBase
     {
+
+
+
         // GET: api/<ServicioController>
         [HttpGet]
         public IEnumerable<string> Get()
