@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿﻿using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 
 
@@ -89,3 +89,5 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
         }
     }
 }
+
+
