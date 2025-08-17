@@ -16,6 +16,7 @@ namespace SistemaGestionCitas.Infrastructure.Services.Correo.Strategy
                 .Replace("{{UserName}}", usuario.Nombre.Value)
                 .Replace("{{IdCita}}", cita.IdCita.ToString())
                 .Replace("{{Servicio}}", cita.Servicio.Nombre)
+                .Replace("{{Precio}}", cita.Servicio.Precio.ToString())
                 .Replace("{{Horario}}", cita.ConfiguracionTurno.HorariosId.ToString())
                 .Replace("{{Duracion}}", cita.ConfiguracionTurno.DuracionMinutos.ToString()) 
                 .Replace("{{Lugar}}", cita.Lugar.Nombre); 

@@ -6,7 +6,7 @@ namespace SistemaGestionCitas.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SlotHorarioController : ControllerBase
+    public class HorarioController : ControllerBase
     {
         // GET: api/<SlotHorarioController>
         [HttpGet]
