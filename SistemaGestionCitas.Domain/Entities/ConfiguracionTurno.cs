@@ -17,7 +17,6 @@ namespace SistemaGestionCitas.Domain.Entities
         public bool AunAceptaCitas { get; set; }
 
         public Horario Horario { get; set; } = null!;
-        public ICollection<FranjaHorario> Franjas { get; set; } = new List<FranjaHorario>();
         public ICollection<Cita> Citas { get; set; } = null!;
     }
 }

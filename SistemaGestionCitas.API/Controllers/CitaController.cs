@@ -88,8 +88,9 @@ namespace SistemaGestionCitas.API.Controllers
 
         // POST api/<CitaController>
         [HttpPost]
-        public async Task<IActionResult> ReservarCita([FromBody] CrearCitaDto crearCitaDto)
+        public async Task<ActionResult<CitaResponseDto>> CrearCita([FromBody] CrearCitaDto crearCitaDto)
         {
+            // 1. Validar el DTO con los data annotations
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -101,18 +102,9 @@ namespace SistemaGestionCitas.API.Controllers
                 return BadRequest(new { Error = "El usuario proporcionado no existe." });
             }
 
-            // 3. Mapear el DTO a la entidad Cita antes de llamar al servicio
-            var cita = new Cita
-            {
-                IdUsuario = crearCitaDto.IdUsuario,
-                FechaCita = crearCitaDto.FechaCita,
-                TurnoId = crearCitaDto.TurnoId,
-                FranjaId = crearCitaDto.FranjaId, 
-                LugarId = crearCitaDto.LugarId,
-                ServicioId = crearCitaDto.ServicioId
-            };
-
-            var result = await _reservarCitaService.ReservarCitaAsync(cita);
+            var nuevaCita = crearCitaDto.Adapt<Cita>();
+        
+            var result = await _reservarCitaService.ReservarCitaAsync(usuario, nuevaCita);
 
             if (result.IsFailure)
             {

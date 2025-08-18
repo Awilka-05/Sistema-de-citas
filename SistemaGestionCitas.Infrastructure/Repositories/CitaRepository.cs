@@ -19,25 +19,21 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         public async Task<Cita?> GetByIdAsync(int id)
         {
             return await _context.Citas
-            .Include(c => c.Servicio)
-            .Include(c => c.Lugar)
-            .Include(c => c.ConfiguracionTurno)
-                .ThenInclude(ct => ct.Horario)
-            .Include(c => c.FranjaHorario) 
-            .FirstOrDefaultAsync(c => c.IdCita == id);
-
+                         .Include(c => c.Servicio)
+                         .Include(c => c.Lugar)
+                         .Include(c => c.ConfiguracionTurno)
+                         .ThenInclude(ct => ct.Horario)
+                         .FirstOrDefaultAsync(c => c.IdCita == id);
+            
         }
            
 
         public async Task<IEnumerable<Cita>> GetAllAsync(){
 
-            return await _context.Set<Cita>()
-            .Include(c => c.Servicio)
-            .Include(c => c.Lugar)
-            .Include(c => c.ConfiguracionTurno)
-                .ThenInclude(ct => ct.Horario)
-            .Include(c => c.FranjaHorario)
-            .ToListAsync();
+           return await _context.Set<Cita>()
+                  .Include(c => c.ConfiguracionTurno)
+                  .ThenInclude(ct => ct.Horario)
+                  .ToListAsync();
         }
             
 
@@ -56,11 +52,10 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         public async Task<IEnumerable<Cita>> GetCitasByUsuarioAsync(int usuarioId)
         {
             return await _context.Set<Cita>()
-           .Include(c => c.ConfiguracionTurno)
-           .ThenInclude(ct => ct.Horario)
-           .Include(c => c.FranjaHorario) 
-           .Where(c => c.IdUsuario == usuarioId)
-           .ToListAsync();
+               .Include(c => c.ConfiguracionTurno)
+               .ThenInclude(ct => ct.Horario)
+               .Where(c => c.IdUsuario == usuarioId)
+               .ToListAsync();
         }
 
         public async Task<IEnumerable<Cita>> GetByFechaAsync(DateTime fecha)

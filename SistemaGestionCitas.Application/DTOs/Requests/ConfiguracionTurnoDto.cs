@@ -26,8 +26,6 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         [Required(ErrorMessage = "La duración de estaciones es requerida")]
         [Range(1, 100, ErrorMessage = "La capacidad debe ser un número entre 1 y 100.")]
         public int CantidadEstaciones { get; set; }
-
-        public bool AunAceptaCitas { get; set; } = true;
-
+        
     }
 }

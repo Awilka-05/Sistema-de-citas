@@ -16,10 +16,10 @@ namespace SistemaGestionCitas.Infrastructure.Services.Correo.Strategy
             _estrategia = estrategia;
         }
 
-        public async Task EjecutarAsync(Cita cita, Usuario usuario, FranjaHorario franjaSeleccionada)
+        public async Task EjecutarAsync(Cita cita, Usuario usuario)
         {
             if (_estrategia != null)
-                await _estrategia.EnviarAsync(cita, usuario, franjaSeleccionada);
+                await _estrategia.EnviarAsync(cita, usuario);
         }
     }
 }
