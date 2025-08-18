@@ -52,7 +52,17 @@ namespace SistemaGestionCitas.Application.Services
                 _logger.LogWarning($"Ya existe un horario con HoraInicio '{entity.HoraInicio}' y HoraFin '{entity.HoraFin}'.");
                 return Result<Horario>.Failure("El horario ya existe.");
             }
-      
+            if (entity.HoraInicio >= entity.HoraFin)
+            {
+                _logger.LogWarning("La hora de inicio debe ser menor que la hora de fin.");
+                return Result<Horario>.Failure("La hora de inicio debe ser menor que la hora de fin.");
+            }
+            if (entity.HoraInicio < TimeSpan.Zero || entity.HoraFin > TimeSpan.FromHours(24))
+            {
+                _logger.LogWarning("Las horas deben estar dentro del rango de 00:00 a 23:59.");
+                return Result<Horario>.Failure("Las horas deben estar dentro del rango de 00:00 a 23:59.");
+            }
+
             await _horarioRepository.AddAsync(entity);
             _logger.LogInformation($"Horario '{entity.HorarioId}' agregado exitosamente.");
             return Result<Horario>.Success(entity);

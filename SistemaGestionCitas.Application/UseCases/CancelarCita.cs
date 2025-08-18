@@ -35,27 +35,9 @@ namespace SistemaGestionCitas.Application.UseCases
                 _logger.LogWarning("No se pudo cancelar la cita con ID {CitaId}: {Error}", citaId, validacion.Error);
                 return Result<Cita>.Failure(validacion.Error);
             }
-
             var cita = validacion.Value;
             cita.Estado = EstadoCita.Cancelada;
             await _citaRepository.UpdateAsync(cita);
-
-            var citaCompleta = await _citaRepository.GetByIdAsync(cita.IdCita);
-
-            if (citaCompleta == null || citaCompleta.ConfiguracionTurno == null || citaCompleta.ConfiguracionTurno.Franjas == null)
-            {
-                _logger.LogError("Fallo al cargar la cita completa para el correo de cancelación.");
-                return Result<Cita>.Success(cita);
-            }
-
-            var franjaSeleccionada = citaCompleta.ConfiguracionTurno.Franjas
-                                                .FirstOrDefault(f => f.FranjaId == citaCompleta.FranjaId);
-
-            if (franjaSeleccionada == null)
-            {
-                _logger.LogError("No se encontró la franja horaria para la cita cancelada.");
-                return Result<Cita>.Success(cita);
-            }
 
             var resultadoEstrategia = CorreoEstrategiaFactory.FactoryCorreo("cancelacion");
 
@@ -64,8 +46,7 @@ namespace SistemaGestionCitas.Application.UseCases
                 var estrategiaCancelacion = resultadoEstrategia.Value;
                 var context = new CorreoContext();
                 context.SetStrategy(estrategiaCancelacion);
-
-                await context.EjecutarAsync(citaCompleta, usuario, franjaSeleccionada);
+                await context.EjecutarAsync(cita, usuario);
             }
             else
             {
@@ -75,6 +56,5 @@ namespace SistemaGestionCitas.Application.UseCases
             return Result<Cita>.Success(cita);
         }
     }
-    
     
 }
