@@ -10,7 +10,7 @@ namespace SistemaGestionCitas.Infrastructure.Services.Correo.Factory
 {
     public static class CorreoEstrategiaFactory
     {
-        public static Result<ICorreoEstrategia> Crear(string tipo)
+        public static Result<ICorreoEstrategia> FactoryCorreo(string tipo)
         {
             ICorreoEstrategia estrategia;
             switch (tipo.ToLower())

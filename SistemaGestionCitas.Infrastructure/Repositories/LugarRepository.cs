@@ -6,7 +6,7 @@ using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 
 namespace SistemaGestionCitas.Infrastructure.Repositories
 {
-    public class LugarRepository : IRepository<Lugar, short>
+    public class LugarRepository : ILugarRepository
     {
         private readonly SistemaCitasDbContext _context;
 
@@ -15,11 +15,18 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Lugar?> GetByIdAsync(short id) =>
-            await _context.Set<Lugar>().FindAsync(id);
+        public async Task<Lugar?> GetByIdAsync(short id)
+        {
+             return await _context.Set<Lugar>().FindAsync(id);
 
-        public async Task<IEnumerable<Lugar>> GetAllAsync() =>
-            await _context.Set<Lugar>().ToListAsync();
+        }
+           
+
+        public async Task<IEnumerable<Lugar>> GetAllAsync() {
+
+            return await _context.Set<Lugar>().ToListAsync();
+        }
+           
 
         public async Task AddAsync(Lugar entity)
         {
