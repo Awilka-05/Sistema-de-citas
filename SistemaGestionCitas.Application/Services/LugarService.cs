@@ -62,20 +62,6 @@ namespace SistemaGestionCitas.Application.Services
             _logger.LogInformation($"Lugar '{entity.Nombre}' actualizado.");
             return Result<Lugar>.Success(entity);
         }
-
-        public async Task<Result<bool>> DeleteAsync(short id)
-        {
-            var lugar = await _repository.GetByIdAsync(id);
-            if (lugar == null)
-            {
-                _logger.LogWarning($"Lugar con ID {id} no encontrado para eliminar.");
-                return Result<bool>.Failure("Lugar no encontrado.");
-            }
-
-            await _repository.DeleteAsync(id);
-            _logger.LogInformation($"Lugar con ID {id} eliminado.");
-            return Result<bool>.Success(true);
-        }
     }
 
 }

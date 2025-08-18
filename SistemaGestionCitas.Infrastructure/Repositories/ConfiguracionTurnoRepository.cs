@@ -26,26 +26,20 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         }
         public async Task<IEnumerable<ConfiguracionTurno>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.ConfiguracionesTurnos
+                                .Include(ct => ct.Horario)
+                                .ToListAsync();
         }
         public async Task AddAsync(ConfiguracionTurno entity)
         {
-            throw new NotImplementedException();
+            await _context.ConfiguracionesTurnos.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateAsync(ConfiguracionTurno entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<ConfiguracionTurno>> GetDisponiblesAsync(DateTime fecha)
-        {
-            throw new NotImplementedException();
-            
-        }
-        
+     
     }
 }

@@ -90,19 +90,5 @@ namespace SistemaGestionCitas.API.Controllers
             return Ok(response);
         }
 
-        // DELETE api/<ServicioController>/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(short id)
-        {
-            var result = await _servicioService.DeleteAsync(id);
-
-            if (result.IsFailure)
-            {
-                ModelState.AddModelError("Error", result.Error);
-                return BadRequest(ModelState);
-            }
-
-            return Ok("Servicio eliminado con éxito");
-        }
     }
 }

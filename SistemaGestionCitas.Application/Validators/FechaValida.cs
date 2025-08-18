@@ -22,7 +22,6 @@ namespace SistemaGestionCitas.Application.Validators
         {
             var fechaFin = value as DateTime?;
 
-            // pa obtener la propiedad de fecha de inicio del objeto que se está validando
             var fechaInicioPropiedad = validationContext.ObjectType.GetProperty(_fechaInicioPropiedad);
 
             if (fechaInicioPropiedad == null)
@@ -32,12 +31,18 @@ namespace SistemaGestionCitas.Application.Validators
 
             var fechaInicio = fechaInicioPropiedad.GetValue(validationContext.ObjectInstance) as DateTime?;
 
-            if (fechaFin.HasValue && fechaInicio.HasValue && fechaFin.Value <= fechaInicio.Value)
+            if (fechaFin.HasValue && fechaInicio.HasValue)
             {
-                return new ValidationResult(
-                    ErrorMessage ?? $"La fecha de finalización debe ser posterior a la fecha de inicio.",
-                    new[] { validationContext.MemberName! }
-                );
+         
+                if (fechaFin.Value <= fechaInicio.Value)
+                {
+                    return new ValidationResult("La fecha de finalización debe ser posterior a la fecha de inicio.", new[] { validationContext.MemberName! });
+                }
+
+                if ((fechaFin.Value - fechaInicio.Value).TotalDays > 6)
+                {
+                    return new ValidationResult("El rango de fechas no puede ser mayor a 6 días.", new[] { validationContext.MemberName! });
+                }
             }
 
             return ValidationResult.Success;

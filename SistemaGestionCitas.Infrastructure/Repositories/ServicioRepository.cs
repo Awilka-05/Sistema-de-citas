@@ -47,16 +47,6 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
 
         }
 
-        public async Task DeleteAsync(short id)
-        {
-            var entity = await GetByIdAsync(id);
-            if (entity != null)
-            {
-                _context.Set<Servicio>().Remove(entity);
-                await _context.SaveChangesAsync();
-            }
-        }
-
         public async Task<bool> ExisteNombreAsync(string nombre)
         {
             return await _context.Set<Servicio>().AnyAsync(s => s.Nombre == nombre);

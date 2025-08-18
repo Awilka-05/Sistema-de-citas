@@ -63,19 +63,5 @@ namespace SistemaGestionCitas.Application.Services
             _logger.LogInformation($"Servicio '{entity.Nombre}' actualizado.");
             return Result<Servicio>.Success(entity);
         }
-
-        public async Task<Result<bool>> DeleteAsync(short id)
-        {
-            var Servicio = await _repository.GetByIdAsync(id);
-            if (Servicio == null)
-            {
-                _logger.LogWarning($"Servicio con ID {id} no encontrado");
-                return Result<bool>.Failure("Servicio no encontrado.");
-            }
-
-            await _repository.DeleteAsync(id);
-            _logger.LogInformation($"Servicio con ID {id} eliminado.");
-            return Result<bool>.Success(true);
-        }
     }
 }

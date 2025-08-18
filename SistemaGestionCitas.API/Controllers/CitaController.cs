@@ -101,8 +101,9 @@ namespace SistemaGestionCitas.API.Controllers
             {
                 return BadRequest(new { Error = "El usuario proporcionado no existe." });
             }
-            var nuevaCita = crearCitaDto.Adapt<Cita>();
 
+            var nuevaCita = crearCitaDto.Adapt<Cita>();
+        
             var result = await _reservarCitaService.ReservarCitaAsync(usuario, nuevaCita);
 
             if (result.IsFailure)

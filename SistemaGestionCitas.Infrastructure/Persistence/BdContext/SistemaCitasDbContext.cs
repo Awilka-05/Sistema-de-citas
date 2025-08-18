@@ -117,7 +117,9 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
                 .Property(c => c.Estado).HasColumnName("estado");
             modelBuilder.Entity<Cita>()
                 .Property(c => c.RowVersion).HasColumnName("row_version");
-
+            modelBuilder.Entity<Cita>()
+                .Property(c => c.FechaCita).HasColumnName("fecha_cita");
+        
 
             // Relaciones Cita
             modelBuilder.Entity<Cita>()

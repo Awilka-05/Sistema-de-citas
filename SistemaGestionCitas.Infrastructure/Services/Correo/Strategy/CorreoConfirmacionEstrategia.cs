@@ -15,9 +15,11 @@ namespace SistemaGestionCitas.Infrastructure.Services.Correo.Strategy
             string body = template
                 .Replace("{{UserName}}", usuario.Nombre.Value)
                 .Replace("{{IdCita}}", cita.IdCita.ToString())
+                .Replace("{{Fecha}}", cita.FechaCita.ToString())
                 .Replace("{{Servicio}}", cita.Servicio.Nombre)
                 .Replace("{{Precio}}", cita.Servicio.Precio.ToString())
-                .Replace("{{Horario}}", cita.ConfiguracionTurno.HorariosId.ToString())
+                .Replace("{{HorarioInicio}}", cita.ConfiguracionTurno.Horario.HoraInicio.ToString())
+                .Replace("{{HorarioFin}}", cita.ConfiguracionTurno.Horario.HoraFin.ToString())
                 .Replace("{{Duracion}}", cita.ConfiguracionTurno.DuracionMinutos.ToString()) 
                 .Replace("{{Lugar}}", cita.Lugar.Nombre); 
 
