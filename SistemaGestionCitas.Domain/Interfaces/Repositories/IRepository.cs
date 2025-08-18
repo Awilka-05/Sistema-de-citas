@@ -1,6 +1,4 @@
-﻿
-
-namespace SistemaGestionCitas.Domain.Interfaces.Repositories
+﻿namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
     public interface IRepository<T, Ttype> where T : class
     {

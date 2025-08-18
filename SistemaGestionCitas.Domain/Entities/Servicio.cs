@@ -14,5 +14,4 @@ namespace SistemaGestionCitas.Domain.Entities
 
         public ICollection<Cita> Citas { get; set; } = null!;
     }
-
 }

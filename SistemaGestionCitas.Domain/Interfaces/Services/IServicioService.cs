@@ -7,5 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IServicioService : IService<Servicio, short>{}
+    public interface IServicioService : IService<Servicio, short>
+    {
+    }
 }

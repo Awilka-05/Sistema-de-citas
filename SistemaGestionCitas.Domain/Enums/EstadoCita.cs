@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 namespace SistemaGestionCitas.Domain.Enums
 {
     public enum EstadoCita
-    {  
+    {
         Disponible,
         Confirmada,
-        Cancelada 
-        
+        Cancelada
     }
 }
-
