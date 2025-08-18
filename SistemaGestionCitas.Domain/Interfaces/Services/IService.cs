@@ -13,7 +13,6 @@ namespace SistemaGestionCitas.Domain.Interfaces.Services
         Task<Result<IEnumerable<T>>> GetAllAsync();
         Task<Result<T>> AddAsync(T entity);
         Task<Result<T>> UpdateAsync(T entity);
-        Task<Result<bool>> DeleteAsync(Ttype id);
-
+ 
     }
 }
