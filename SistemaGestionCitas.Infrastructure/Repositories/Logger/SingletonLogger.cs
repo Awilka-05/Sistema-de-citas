@@ -1,58 +1,56 @@
 ﻿using Microsoft.Extensions.Logging;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace SistemaGestionCitas.Infrastructure.Services.Logger;
+namespace SistemaGestionCitas.Infrastructure.Repositories.Logger;
 
 public class SingletonLogger : ILogger
 {
-    private static SingletonLogger? _instance;
-    private static readonly object LockInstance = new object();
-    private static readonly object LockFile = new object();
+    // Instancia de la clase
+    private static SingletonLogger _instance;
     private readonly string _filePath;
-    private readonly string _connectionString;
+    private static readonly object _lockInstance = new object();
+    private static readonly object _lockFile = new object();
 
-    private SingletonLogger(string connectionString)
+    // Constructor privado
+    private SingletonLogger()
     {
         Directory.CreateDirectory("Logs");
-        _filePath = Path.Combine("Logs", "log.txt");
-        _connectionString = connectionString;
+        _filePath = Path.Combine("Logs", "Application.log");
     }
-
-    public static SingletonLogger Instance(string connectionString)
+    
+    // Propiedad pública para acceder al singleton
+    public static SingletonLogger Instance
     {
-        if (_instance == null)
+        get
         {
-            lock (LockInstance)
+            if (_instance == null)
             {
-                if (_instance == null)
+                lock (_lockInstance)
                 {
-                    _instance = new SingletonLogger(connectionString);
+                    if (_instance == null)
+                        _instance = new SingletonLogger();
                 }
             }
+            return _instance;
         }
-
-        return _instance;
     }
 
-
-    public IDisposable? BeginScope<TState>(TState state) => null;
+    public IDisposable BeginScope<TState>(TState state) => null;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 
-    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
-        Func<TState, Exception?, string> formatter)
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+        Func<TState, Exception, string> formatter)
     {
-        string message = formatter(state, exception);
-        string logLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {message}";
+        if (!IsEnabled(logLevel)) return;
 
-        //Guardo en archivo
-        lock (LockFile)
+        string message = formatter(state, exception);
+        string logLine = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{logLevel}] {message}";
+
+        lock (_lockFile)
         {
-            File.AppendAllText(_filePath, logLine + Environment.NewLine);
+            System.IO.File.AppendAllText(_filePath, logLine + Environment.NewLine);
             if (exception != null)
-            {
-                File.AppendAllText(_filePath, $"Exception: {exception.Message}{Environment.NewLine}");
-            }
+                System.IO.File.AppendAllText(_filePath, exception + Environment.NewLine);
         }
     }
 }

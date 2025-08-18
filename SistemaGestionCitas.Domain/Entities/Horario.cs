@@ -15,5 +15,4 @@ namespace SistemaGestionCitas.Domain.Entities
 
         public ICollection<ConfiguracionTurno> ConfiguracionesTurnos { get; set; } = null!;
     }
-
 }

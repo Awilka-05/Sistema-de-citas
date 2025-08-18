@@ -7,7 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IConfiguracionTurnoRepository: IRepository<ConfiguracionTurno, int>
+    public interface IConfiguracionTurnoRepository : IRepository<ConfiguracionTurno, int>
     {
     }
 }

@@ -7,7 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IHorarioService : IService<Horario,short>
+    public interface IHorarioService : IService<Horario, short>
     {
     }
 }

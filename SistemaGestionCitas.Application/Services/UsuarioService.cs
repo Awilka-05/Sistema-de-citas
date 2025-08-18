@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.Services
 {
-    internal class UsuarioService
+    public class UsuarioService
     {
     }
 }

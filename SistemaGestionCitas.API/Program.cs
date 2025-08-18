@@ -1,15 +1,21 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using SistemaGestionCitas.Application.Services;
 using SistemaGestionCitas.Application.UseCases;
 using SistemaGestionCitas.Application.Validators;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Domain.Interfaces.Services;
+using SistemaGestionCitas.Infrastructure.JWT;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 using SistemaGestionCitas.Infrastructure.Repositories;
+using SistemaGestionCitas.Infrastructure.Repositories.Logger;
 using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,26 +54,57 @@ builder.Services.AddScoped<IRepository<Horario, short>, HorarioRepository>();
 builder.Services.AddScoped<IRepository<ConfiguracionTurno, int>, ConfiguracionTurnoRepository>();
 builder.Services.AddScoped<IRepository<Usuario, int>, UsuarioRepository>();
 
+// JWT & Auth
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddScoped<UserValidator>();
+builder.Services.AddScoped<UsuarioService>();
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.MapInboundClaims = false; // Mantener los nombres originales de los claims
+        var config = builder.Configuration;
+        
+        var key = Encoding.UTF8.GetBytes(config["Jwt:Secret"]!);
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 builder.Services.AddControllers().AddJsonOptions(options =>
  {
      options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
  });
 
 
-// Add custom services
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 
 CorreoSender.SetConfiguration(builder.Configuration);
+// My SingletonLogger
+builder.Logging.AddConsole(); // consola sigue activa
+builder.Logging.AddProvider(new SingletonLoggerProvider()); // nuestro logger singleton a archivo
 
 //Mapster 
 
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
-builder.Logging.AddProvider(new SistemaGestionCitas.Application.Services.LoggerProvider(
-    builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty));
+
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

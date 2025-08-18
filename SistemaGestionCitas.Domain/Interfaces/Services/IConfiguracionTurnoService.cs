@@ -7,5 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IConfiguracionTurnoService : IService<ConfiguracionTurno, int> {}
+    public interface IConfiguracionTurnoService : IService<ConfiguracionTurno, int>
+    {
+    }
 }

@@ -15,5 +15,4 @@ namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 
         Task<int> CountByTurnoIdAsync(int turnoId);
     }
-   
 }
