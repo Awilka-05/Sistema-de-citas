@@ -9,6 +9,7 @@ using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Domain.Interfaces.Services;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 using SistemaGestionCitas.Infrastructure.Repositories;
+using SistemaGestionCitas.Infrastructure.Repositories.Logger;
 using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,19 +45,18 @@ builder.Services.AddScoped<IRepository<Usuario, int>, UsuarioRepository>();
 
 
 
-// Add custom services
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 
 CorreoSender.SetConfiguration(builder.Configuration);
+// My SingletonLogger
+builder.Logging.AddConsole(); // consola sigue activa
+builder.Logging.AddProvider(new SingletonLoggerProvider()); // nuestro logger singleton a archivo
 
 //Mapster 
 
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
-builder.Logging.AddProvider(new SistemaGestionCitas.Application.Services.LoggerProvider(
-    builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty));
+
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

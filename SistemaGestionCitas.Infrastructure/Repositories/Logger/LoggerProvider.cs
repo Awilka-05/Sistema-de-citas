@@ -1,21 +1,28 @@
 ﻿using Microsoft.Extensions.Logging;
-using SistemaGestionCitas.Infrastructure.Services.Logger;
-using ILogger = SistemaGestionCitas.Domain.Interfaces.Services.ILogger;
 
-namespace SistemaGestionCitas.Application.Services;
+namespace SistemaGestionCitas.Infrastructure.Repositories.Logger;
 
-public class LoggerProvider : ILoggerProvider
+public class SingletonLoggerProvider : ILoggerProvider
 {
-    private readonly string _connectionString;
-    
-public LoggerProvider(string connectionString)
+    public ILogger CreateLogger(string categoryName)
     {
-        _connectionString = connectionString;
+        if (categoryName.StartsWith("Microsoft.EntityFrameworkCore") ||
+            categoryName.StartsWith("Microsoft."))
+        {
+            return new NullLogger(); // no escribe nada
+        }
+
+        return SingletonLogger.Instance;
     }
 
-    public Microsoft.Extensions.Logging.ILogger CreateLogger(string categoryName)
-    {
-        return SingletonLogger.Instance(_connectionString);   
-    }
     public void Dispose() { }
+}
+
+// Esto es para que en nuestro Log solamente se guarden Log de nuestra APP
+public class NullLogger : ILogger
+{
+    public IDisposable BeginScope<TState>(TState state) => null;
+    public bool IsEnabled(LogLevel logLevel) => false;
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+        Func<TState, Exception, string> formatter) { }
 }
