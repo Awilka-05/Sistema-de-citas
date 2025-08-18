@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
@@ -16,9 +17,12 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<ConfiguracionTurno?> GetByIdAsync(int id) { 
+        public async Task<ConfiguracionTurno?> GetByIdAsync(int id) {
 
-            return await _context.Set<ConfiguracionTurno>().FindAsync(id);
+            return await _context.ConfiguracionesTurnos
+                          .Include(ct => ct.Horario)
+                          .FirstOrDefaultAsync(ct => ct.TurnoId == id);
+
         }
         public async Task<IEnumerable<ConfiguracionTurno>> GetAllAsync()
         {

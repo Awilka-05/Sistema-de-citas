@@ -45,19 +45,7 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
 
         public async Task UpdateAsync(Cita entity)
         {
-            var existingEntity = _context.Set<Cita>()
-            .Local
-            .FirstOrDefault(e => e.IdCita == entity.IdCita);
-
-            if (existingEntity != null)
-            {
-
-                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-            }
-            else
-            {
-                _context.Set<Cita>().Update(entity);
-            }
+            await _context.SaveChangesAsync();
 
         }
 
@@ -86,6 +74,11 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
                 .Where(c => c.Estado == estado)
                 .ToListAsync();
         }
-            
+
+        public async Task<int> CountByTurnoIdAsync(int turnoId)
+        {
+             return await _context.Citas.CountAsync(c => c.TurnoId == turnoId);
+        }
+
     }
 }
