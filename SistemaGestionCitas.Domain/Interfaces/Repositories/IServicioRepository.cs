@@ -7,7 +7,7 @@ using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
-    public interface IServicioRepository : IRepository<Servicio,short>
+    public interface IServicioRepository : IRepository<Servicio, short>
     {
     }
 }

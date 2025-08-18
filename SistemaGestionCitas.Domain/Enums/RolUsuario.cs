@@ -9,7 +9,6 @@ namespace SistemaGestionCitas.Domain.Enums
     public enum RolUsuario
     {
         Admin,
-        Usuario      
+        Usuario
     }
-    
 }

@@ -9,5 +9,4 @@ namespace SistemaGestionCitas.Domain.Interfaces.Repositories
         Task<IEnumerable<Cita>> GetByFechaAsync(DateTime fecha);
         Task<IEnumerable<Cita>> GetByEstadoAsync(EstadoCita estado);
     }
-   
 }

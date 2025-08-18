@@ -1,4 +1,7 @@
+using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
 
@@ -8,7 +11,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SistemaCitasDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Add custom services
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddEntityFrameworkStores<SistemaCitasDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<UserManager<IdentityUser>>();
+builder.Services.AddIdentityCore<SignInManager<IdentityUser>>();
+builder.Services.AddHttpContextAccessor();
+
+
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    options.MapInboundClaims = false;
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer= false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = 
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["KeyJWT"]!)), 
+        ClockSkew = TimeSpan.Zero
+    };
+} );
+
+    
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 

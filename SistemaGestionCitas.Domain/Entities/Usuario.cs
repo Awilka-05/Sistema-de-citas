@@ -20,10 +20,10 @@ namespace SistemaGestionCitas.Domain.Entities
         public RolUsuario Rol { get; set; }
         public bool Activo { get; set; }
 
-        public ICollection<Cita> Citas { get; set; } 
+        public ICollection<Cita> Citas { get; set; }
 
         public Usuario(Nombre nombre, Cedula cedula, Correo correo,
-                 DateTime fechaNacimiento, string telefono, string contrasena, RolUsuario rol)
+            DateTime fechaNacimiento, string telefono, string contrasena, RolUsuario rol)
         {
             Nombre = nombre;
             Cedula = cedula;
@@ -35,7 +35,10 @@ namespace SistemaGestionCitas.Domain.Entities
             Activo = true;
             Citas = new List<Cita>();
         }
+
         // Constructor vacío para EF Core, ya no es necesario
-        public Usuario() { }
+        public Usuario()
+        {
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using SistemaGestionCitas.Domain.Entities;
+﻿using SistemaGestionCitas.Domain.Entities;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {

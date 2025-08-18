@@ -9,6 +9,6 @@ namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
     public interface IReservarCitaService
     {
-        Task<Cita>ReservarCitaAsync(Cita cita);
+        Task<Cita> ReservarCitaAsync(Cita cita);
     }
 }

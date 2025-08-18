@@ -11,7 +11,7 @@ namespace SistemaGestionCitas.Domain.Value_Objects
     public record Correo
     {
         private static readonly Regex EmailRegex =
-       new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public string Value { get; }
 
@@ -27,6 +27,5 @@ namespace SistemaGestionCitas.Domain.Value_Objects
 
             return Result<Correo>.Success(new Correo(value));
         }
-
     }
 }
