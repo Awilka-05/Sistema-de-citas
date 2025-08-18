@@ -13,7 +13,9 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
         [Required(ErrorMessage = "La fecha de la cita es obligatoria.")]
         public DateTime FechaCita { get; set; }
 
+        [Required(ErrorMessage = "El ID de la franja es requerido")]
         public int TurnoId { get; set; }
+        public int FranjaId { get; set; }
 
         [IDValido(ErrorMessage = "El ID del Lugar no es válido.")]
         public short LugarId { get; set; }

@@ -33,7 +33,7 @@ namespace SistemaGestionCitas.Application.Validators
                 return Result<Cita>.Failure("El turno seleccionado no es válido.");
             }
 
-            DateTime fechaYHoraInicioNuevaCita = turno.FechaInicio.Add(turno.Horario.HoraInicio);
+            DateTime fechaYHoraInicioNuevaCita = turno.FechaInicio.Add(turno.Horario.HoraInicio.ToTimeSpan());
             DateTime fechaYHoraFinNuevaCita = fechaYHoraInicioNuevaCita.AddMinutes(turno.DuracionMinutos);
 
             var citasConfirmadasDelUsuario = await _citaRepository.GetCitasByUsuarioAsync(entity.IdUsuario);
@@ -41,7 +41,7 @@ namespace SistemaGestionCitas.Application.Validators
             // Verificar si alguna cita existente del usuario se solapa con la nueva.
             bool seSolapan = citasConfirmadasDelUsuario.Any(citaExistente =>
             {
-                DateTime fechaYHoraInicioExistente = citaExistente.ConfiguracionTurno.FechaInicio.Add(citaExistente.ConfiguracionTurno.Horario.HoraInicio);
+                DateTime fechaYHoraInicioExistente = citaExistente.ConfiguracionTurno.FechaInicio.Add(citaExistente.ConfiguracionTurno.Horario.HoraInicio.ToTimeSpan());
                 DateTime fechaYHoraFinExistente = fechaYHoraInicioExistente.AddMinutes(citaExistente.ConfiguracionTurno.DuracionMinutos);
 
                 return (fechaYHoraInicioNuevaCita < fechaYHoraFinExistente) && (fechaYHoraFinNuevaCita > fechaYHoraInicioExistente);
@@ -70,7 +70,7 @@ namespace SistemaGestionCitas.Application.Validators
             if (cita == null)
                 return Result<Cita>.Failure("La cita no existe.");
 
-            var fechaCita = cita.ConfiguracionTurno.FechaInicio.Add(cita.ConfiguracionTurno.Horario.HoraInicio);
+            var fechaCita = cita.ConfiguracionTurno.FechaInicio.Add(cita.ConfiguracionTurno.Horario.HoraInicio.ToTimeSpan());
             if (fechaCita <= DateTime.Now)
             {
                 _logger.LogError("Fallo al cancelar una cita. La cita con ID {CitaId} ya ha pasado.", citaId);
