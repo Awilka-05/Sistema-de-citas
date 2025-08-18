@@ -12,6 +12,8 @@ namespace SistemaGestionCitas.Domain.Interfaces.Repositories
         Task<IEnumerable<Cita>> GetCitasByUsuarioAsync(int usuarioId);
         Task<IEnumerable<Cita>> GetByFechaAsync(DateTime fecha);
         Task<IEnumerable<Cita>> GetByEstadoAsync(EstadoCita estado);
+
+        Task<int> CountByTurnoIdAsync(int turnoId);
     }
    
 }
