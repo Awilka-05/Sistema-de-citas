@@ -52,8 +52,8 @@ namespace SistemaGestionCitas.Application.Services
 
         public async Task<Result<Servicio>> UpdateAsync(Servicio entity)
         {
-            var lugar = await _repository.GetByIdAsync(entity.ServicioId);
-            if (lugar == null)
+            var servicio = await _repository.GetByIdAsync(entity.ServicioId);
+            if (servicio == null)
             {
                 _logger.LogWarning($"Servicio con ID {entity.ServicioId} no encontrado");
                 return Result<Servicio>.Failure("Servicio no encontrado.");

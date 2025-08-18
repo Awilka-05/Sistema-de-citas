@@ -12,7 +12,7 @@ namespace SistemaGestionCitas.Domain.Value_Objects
     {
         public string Value { get; }
 
-        private Cedula(string value) => Value = value;
+        public Cedula(string value) => Value = value;
 
         public static Result<Cedula> Create(string value)
         {

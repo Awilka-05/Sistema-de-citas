@@ -1,8 +1,10 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using SistemaGestionCitas.Application.DTOs.Requests;
 using SistemaGestionCitas.Application.DTOs.Responses;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Services;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,10 +25,18 @@ namespace SistemaGestionCitas.API.Controllers
 
         // GET: api/<LugarController>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<LugarResponseDto>>> GetAll()
         {
             var result = await _lugarService.GetAllAsync();
-            return Ok(result);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+
+            var response = result.Value.Adapt<IEnumerable<LugarResponseDto>>();
+            return Ok(response);
         }
 
         // GET api/<LugarController>/5
@@ -36,7 +46,10 @@ namespace SistemaGestionCitas.API.Controllers
             var result = await _lugarService.GetByIdAsync(id);
 
             if (result.IsFailure)
-                return NotFound(result.Error);
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return NotFound(ModelState);
+            }
 
             var response = result.Value.Adapt<LugarResponseDto>();
             return Ok(response);
@@ -44,28 +57,55 @@ namespace SistemaGestionCitas.API.Controllers
 
         // POST api/<LugarController>
         [HttpPost]
-        public async Task<IActionResult> Add(Lugar lugar)
+        public async Task<ActionResult<LugarResponseDto>> Add([FromBody] LugarDto dto)
         {
+            var lugar = dto.Adapt<Lugar>();
+
             var result = await _lugarService.AddAsync(lugar);
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+            var response = result.Value.Adapt<LugarResponseDto>();
+
+            return Ok(response);
         }
 
 
         // PUT api/<LugarController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Lugar lugar)
+        public async Task<ActionResult<LugarResponseDto>> Update(short id, [FromBody] LugarDto dto)
         {
-            if (id != lugar.LugarId) return BadRequest("ID no coincide.");
+            var lugar = dto.Adapt<Lugar>();
+            lugar.LugarId = id;
+
             var result = await _lugarService.UpdateAsync(lugar);
-            return result.IsSuccess ? Ok(result) : NotFound(result);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+
+            var response = result.Value.Adapt<LugarResponseDto>();
+            return Ok(response);
         }
 
         // DELETE api/<LugarController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(short id)
+        public async Task<ActionResult> Delete(short id)
         {
             var result = await _lugarService.DeleteAsync(id);
-            return result.IsSuccess ? Ok(result) : NotFound(result);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+
+            return Ok("Servicio eliminado con éxito");
         }
     }
 }

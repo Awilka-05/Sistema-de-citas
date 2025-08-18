@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaGestionCitas.Application\SistemaGestionCitas.Application.csproj" />
+    <ProjectReference Include="..\SistemaGestionCitas.Domain\SistemaGestionCitas.Domain.csproj" />
     <ProjectReference Include="..\SistemaGestionCitas.Infrastructure\SistemaGestionCitas.Infrastructure.csproj" />
   </ItemGroup>
 

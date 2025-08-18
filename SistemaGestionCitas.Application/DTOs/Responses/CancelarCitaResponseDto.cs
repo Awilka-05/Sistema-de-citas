@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Application.DTOs.Responses
 {
-    public class ServicioResponseDto
+    public class CancelarCitaResponseDto
     {
-        public short ServicioId { get; set; }
-        public string Nombre { get; set; } = null!;
-        public decimal Precio { get; set; }
+        public string Mensaje { get; set; }
     }
 }
