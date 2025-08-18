@@ -9,6 +9,6 @@ namespace SistemaGestionCitas.Infrastructure.Services.Correo.Strategy
 {
     public interface ICorreoEstrategia
     {
-        Task EnviarAsync(Cita cita, Usuario usuario);
+        Task EnviarAsync(Cita cita, Usuario usuario, FranjaHorario franjaSeleccionada);
     }
 }
