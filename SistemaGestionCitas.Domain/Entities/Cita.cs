@@ -14,7 +14,8 @@ namespace SistemaGestionCitas.Domain.Entities
         public int TurnoId { get; set; }
         public short LugarId { get; set; }
         public short ServicioId { get; set; }
-        public EstadoCita Estado { get; set; }
+        public DateTime FechaCita { get; set; }
+        public EstadoCita Estado { get; set; } 
         public byte[] RowVersion { get; set; } = null!;
 
         public Usuario Usuario { get; set; } = null!;

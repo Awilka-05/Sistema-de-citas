@@ -16,6 +16,6 @@ namespace SistemaGestionCitas.Application.DTOs.Responses
         public int CantidadEstaciones { get; set; }
         public int DuracionMinutos { get; set; }
         public bool AunAceptaCitas { get; set; }
-        public Horario Horario { get; set; } = null!;
+        public HorarioResponseDto Horario { get; set; } = null!;
     }
 }

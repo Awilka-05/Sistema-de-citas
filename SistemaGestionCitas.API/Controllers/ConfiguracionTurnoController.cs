@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using SistemaGestionCitas.Application.DTOs.Requests;
+using SistemaGestionCitas.Application.DTOs.Responses;
+using SistemaGestionCitas.Application.Services;
+using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Interfaces.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +14,66 @@ namespace SistemaGestionCitas.API.Controllers
     [ApiController]
     public class ConfiguracionTurnoController : ControllerBase
     {
-        // GET: api/<ConfiguracionTurnoController>
+
+        private readonly IConfiguracionTurnoService _configuracionTurnoService;
+
+        public ConfiguracionTurnoController(IConfiguracionTurnoService configuracionTurnoService)
+        {
+            _configuracionTurnoService = configuracionTurnoService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _configuracionTurnoService.GetAllAsync();
+            return Ok(result.Value);
         }
 
-        // GET api/<ConfiguracionTurnoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            var result = await _configuracionTurnoService.GetByIdAsync(id);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return NotFound(result.Error);
         }
 
-        // POST api/<ConfiguracionTurnoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ConfiguracionTurnoResponseDto>> Add([FromBody] ConfiguracionTurnoDto dto)
         {
+            var turno = dto.Adapt<ConfiguracionTurno>();
+
+            var result = await _configuracionTurnoService.AddAsync(turno);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+            var response = result.Value.Adapt<ConfiguracionTurnoResponseDto>();
+
+            return Ok(response);
         }
 
-        // PUT api/<ConfiguracionTurnoController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<ConfiguracionTurnoResponseDto>> Update(int id, [FromBody] ConfiguracionTurnoDto dto)
         {
+            var turno = dto.Adapt<ConfiguracionTurno>();
+            turno.TurnoId = id;
+
+            var result = await _configuracionTurnoService.UpdateAsync(turno);
+
+            if (result.IsFailure)
+            {
+                ModelState.AddModelError("Error", result.Error);
+                return BadRequest(ModelState);
+            }
+
+            var response = result.Value.Adapt<ConfiguracionTurnoResponseDto>();
+            return Ok(response);
         }
 
-        // DELETE api/<ConfiguracionTurnoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

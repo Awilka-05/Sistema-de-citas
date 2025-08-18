@@ -1,24 +1,25 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using SistemaGestionCitas.Application.Validators;
 using SistemaGestionCitas.Domain.Enums;
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
 {
     public class CrearCitaDto
     {
-        [Required(ErrorMessage = "El ID del usuario es requerido")]
+      
+        [IDValido(ErrorMessage = "El ID del Usuario no es válido.")]
         public int IdUsuario { get; set; }
-        [Required(ErrorMessage = "El ID del turno es requerido")]
+        [Required(ErrorMessage = "La fecha de la cita es obligatoria.")]
+        public DateTime FechaCita { get; set; }
+
         public int TurnoId { get; set; }
-        [Required(ErrorMessage = "El ID del lugar es requerido")]
+
+        [IDValido(ErrorMessage = "El ID del Lugar no es válido.")]
         public short LugarId { get; set; }
-        [Required(ErrorMessage = "El ID del servicio es requerido")]
+
+        [IDValido(ErrorMessage = "El ID del Servicio no es válido.")]
         public short ServicioId { get; set; }
-        [Required(ErrorMessage = "El estado de la cita es necesario")]
-        public EstadoCita Estado { get; set; }
-
-        [Required(ErrorMessage = "El ID del slot es requerido")]
-        public int IdSlot { get; set; }
-
+        
     }
 }

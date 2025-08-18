@@ -9,6 +9,5 @@ namespace SistemaGestionCitas.Domain.Interfaces.Repositories
 {
     public interface IConfiguracionTurnoRepository : IRepository<ConfiguracionTurno, int>
     {
-        Task<IEnumerable<ConfiguracionTurno>> GetDisponiblesAsync(DateTime fecha);
     }
 }

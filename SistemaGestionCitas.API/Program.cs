@@ -1,6 +1,7 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SistemaGestionCitas.Application.Services;
 using SistemaGestionCitas.Application.UseCases;
 using SistemaGestionCitas.Application.Validators;
@@ -25,7 +26,8 @@ builder.Services.AddScoped<IServicioService, ServicioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
 builder.Services.AddScoped<IReservarCitaService, ReservarCita>();
 builder.Services.AddScoped<ICancelarCitaService, CancelarCita>();
-builder.Services.AddScoped<IConfiguracionTurnoRepository, ConfiguracionTurnoRepository>();
+builder.Services.AddScoped<IConfiguracionTurnoService, ConfiguracionTurnoService>();
+builder.Services.AddScoped<IHorarioService, HorarioService>();
 
 // Registro de Validadores
 builder.Services.AddScoped<ICitaValidator, CitaValidator>();
@@ -34,15 +36,24 @@ builder.Services.AddScoped<ICitaValidator, CitaValidator>();
 // Registra los repositorios concretos 
 builder.Services.AddScoped<ICitaRepository, CitaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ILugarRepository, LugarRepository>();
+builder.Services.AddScoped<IServicioRepository, ServicioRepository>();
+builder.Services.AddScoped<IHorarioRepository, HorarioRepository>();
+builder.Services.AddScoped<IConfiguracionTurnoRepository, ConfiguracionTurnoRepository>();
 
 
 //Registros adicionales si usas un repositorio genérico
- builder.Services.AddScoped<IRepository<Lugar, short>, LugarRepository>();
+builder.Services.AddScoped<IRepository<Lugar, short>, LugarRepository>();
 builder.Services.AddScoped<IRepository<Servicio, short>, ServicioRepository>();
+builder.Services.AddScoped<IRepository<Horario, short>, HorarioRepository>();
 builder.Services.AddScoped<IRepository<ConfiguracionTurno, int>, ConfiguracionTurnoRepository>();
 builder.Services.AddScoped<IRepository<Usuario, int>, UsuarioRepository>();
 
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+ {
+     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+ });
 
 
 
