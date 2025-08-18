@@ -14,11 +14,13 @@ namespace SistemaGestionCitas.Domain.Entities
         public int TurnoId { get; set; }
         public short LugarId { get; set; }
         public short ServicioId { get; set; }
+        public int FranjaId { get; set; }
         public DateTime FechaCita { get; set; }
         public EstadoCita Estado { get; set; } 
         public byte[] RowVersion { get; set; } = null!;
 
         public Usuario Usuario { get; set; } = null!;
+        public FranjaHorario FranjaHorario { get; set; } = null!;
         public ConfiguracionTurno ConfiguracionTurno { get; set; } = null!;
         public Lugar Lugar { get; set; } = null!;
         public Servicio Servicio { get; set; } = null!;

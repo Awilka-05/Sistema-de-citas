@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionCitas.Domain.Entities
 {
-    public class Horario
+    public class FranjaHorario
     {
-        public short HorarioId { get; set; }
+        public int FranjaId { get; set; }
+        public int ConfiguracionTurnoId { get; set; }
         public TimeOnly HoraInicio { get; set; }
         public TimeOnly HoraFin { get; set; }
-        public string Descripcion { get; set; } = null!;
 
-        public ICollection<ConfiguracionTurno> ConfiguracionesTurnos { get; set; } = null!;
+        public ConfiguracionTurno ConfiguracionTurno { get; set; } = null!;
     }
 }
