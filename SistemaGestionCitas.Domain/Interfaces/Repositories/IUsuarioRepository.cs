@@ -6,5 +6,6 @@ namespace SistemaGestionCitas.Domain.Interfaces.Repositories
     {
         Task<Usuario> GetByCorreoAsync(string correo);
         Task<bool> ExisteCedulaAsync(string cedula);
+        
     }
 }
