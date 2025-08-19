@@ -10,7 +10,7 @@ namespace SistemaGestionCitas.Application.DTOs.Responses
 {
     public class UsuarioResponseDto
     {
-        public int IdUsuario { get; set; }
+        public static int IdUsuario { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public required string Nombre { get; set; }
         public required string Cedula { get; set; }
