@@ -14,7 +14,7 @@ namespace SistemaGestionCitas.Domain.Entities
         public DateTime FechaNacimiento { get; set; }
         public required Nombre Nombre { get; set; }
         public required Cedula Cedula { get; set; }
-        public required Correo Correo { get; set; } = null!;
+        public required Correo Correo { get; set; }
         public string Telefono { get; set; } = null!;
         public string Contrasena { get; set; } = null!;
         public RolUsuario Rol { get; set; }
