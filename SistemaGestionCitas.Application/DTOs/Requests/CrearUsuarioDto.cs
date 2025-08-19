@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using SistemaGestionCitas.Domain.Enums;
+using SistemaGestionCitas.Domain.Value_Objects;
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
 {
@@ -29,7 +30,7 @@ namespace SistemaGestionCitas.Application.DTOs.Requests
 
         [Required(ErrorMessage = "La cédula es requerida")]
         [StringLength(11, ErrorMessage = "La cédula no puede exceder los 11 caracteres")]
-        public string Cedula { get; set; } = null!;
+        public string  Cedula { get; set; } = null!;
 
         [Required(ErrorMessage = "El rol es requerido")]
         public RolUsuario Rol { get; set; }

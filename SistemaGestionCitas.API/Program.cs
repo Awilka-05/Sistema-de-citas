@@ -26,6 +26,7 @@ builder.Services.AddDbContext<SistemaCitasDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registro de Aplicación/Casos de Uso (Services)
+builder.Services.AddScoped<IRegistrarUsuario, RegistrarUsuarioService>();
 builder.Services.AddScoped<ILugarService, LugarService>();
 builder.Services.AddScoped<IServicioService, ServicioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
@@ -37,7 +38,6 @@ builder.Services.AddScoped<IHorarioService, HorarioService>();
 // Registro de Validadores
 builder.Services.AddScoped<ICitaValidator, CitaValidator>();
 
-
 // Registra los repositorios concretos 
 builder.Services.AddScoped<ICitaRepository, CitaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -46,38 +46,55 @@ builder.Services.AddScoped<IServicioRepository, ServicioRepository>();
 builder.Services.AddScoped<IHorarioRepository, HorarioRepository>();
 builder.Services.AddScoped<IConfiguracionTurnoRepository, ConfiguracionTurnoRepository>();
 
-
-//Registros adicionales si usas un repositorio genérico
+//Registros adicionales si usas un repositorio genérico 
 builder.Services.AddScoped<IRepository<Lugar, short>, LugarRepository>();
 builder.Services.AddScoped<IRepository<Servicio, short>, ServicioRepository>();
 builder.Services.AddScoped<IRepository<Horario, short>, HorarioRepository>();
 builder.Services.AddScoped<IRepository<ConfiguracionTurno, int>, ConfiguracionTurnoRepository>();
 builder.Services.AddScoped<IRepository<Usuario, int>, UsuarioRepository>();
 
-// JWT & Auth
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+// JWT & Auth - CONFIGURACIÓN CORREGIDA
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<UserValidator>();
-builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+var jwtSecret = builder.Configuration["Jwt:Secret"];
+var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+var jwtAudience = builder.Configuration["Jwt:Audience"];
+
+// Verificar que los valores JWT no sean null
+if (string.IsNullOrWhiteSpace(jwtSecret))
+    throw new InvalidOperationException("JWT:Secret no está configurado en appsettings.json");
+
+if (string.IsNullOrWhiteSpace(jwtIssuer))
+    throw new InvalidOperationException("JWT:Issuer no está configurado en appsettings.json");
+
+if (string.IsNullOrWhiteSpace(jwtAudience))
+    throw new InvalidOperationException("JWT:Audience no está configurado en appsettings.json");
+
+// Verificar que la clave tenga longitud mínima
+if (jwtSecret.Length < 32)
+    throw new InvalidOperationException("JWT:Secret debe tener al menos 32 caracteres");
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
         options.MapInboundClaims = false; // Mantener los nombres originales de los claims
-        var config = builder.Configuration;
         
-        var key = Encoding.UTF8.GetBytes(config["Jwt:Secret"]!);
+        var key = Encoding.UTF8.GetBytes(jwtSecret);
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ClockSkew = TimeSpan.Zero // Opcional: eliminar tolerancia de tiempo
         };
     });
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -87,23 +104,21 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
 builder.Services.AddControllers().AddJsonOptions(options =>
- {
-     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
- });
-
-
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 
 CorreoSender.SetConfiguration(builder.Configuration);
+
 // My SingletonLogger
 builder.Logging.AddConsole(); // consola sigue activa
 builder.Logging.AddProvider(new SingletonLoggerProvider()); // nuestro logger singleton a archivo
 
 //Mapster 
-
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
-
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -119,7 +134,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(); // Si usas CORS
+app.UseAuthentication(); 
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

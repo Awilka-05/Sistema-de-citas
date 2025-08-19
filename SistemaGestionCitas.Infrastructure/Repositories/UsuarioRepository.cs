@@ -49,10 +49,26 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Correo.Value == correo);
         }
+
+        public Task<Usuario?> GetByNCedulaAsync(string cedula)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> ExisteCedulaAsync(string cedula)
         {
             return await _context.Usuarios
                 .AnyAsync(u => u.Cedula.Value == cedula);
+        }
+
+        public Task<bool> ExisteCorreoAsync(string correo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Usuario?> GetByCorreoAndPasswordAsync(string correo, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }
