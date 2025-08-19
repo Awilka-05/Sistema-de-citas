@@ -28,12 +28,7 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
             return await _context.Usuarios.ToListAsync();
 
         }
-        public async Task AddAsync(Usuario entity)
-        {
-             _context.Usuarios.Add(entity);
-            await _context.SaveChangesAsync();
-
-        }
+      
         public async Task AddAsync(Usuario usuario)
         {
 
@@ -57,9 +52,9 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
 
          public async Task<Usuario?> GetByCorreoAndPasswordAsync(string correo, string password)
         {
-
-                        return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Correo.Value == correo && u.Contrasena == password);
+            return await Task.Run(() => _context.Usuarios
+        .AsEnumerable() // <--- Esta línea hace que la consulta se ejecute en memoria
+        .FirstOrDefault(u => u.Correo.Value == correo && u.Contrasena == password));
 
         }
        
