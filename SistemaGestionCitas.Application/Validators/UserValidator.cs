@@ -28,11 +28,12 @@ namespace SistemaGestionCitas.Application.Validators
                 return Result<object>.Failure("La cedula ya existe.");
             }
 
-            var usuarioExistenteCorreo = await _usuarioRepository.GetByCorreoAsync(crearUsuario.Correo);
-            if (usuarioExistenteCorreo != null)
+            bool correoExiste = await _usuarioRepository.ExisteCorreoAsync(crearUsuario.Correo);
+
+            if (correoExiste)
             {
                 _logger.LogError(
-                    "Error al crear un nuevo usuario. (El correo {userCreate.Email} ya existe)",
+                    "Error al crear un nuevo usuario. (El correo {Correo} ya existe)",
                     crearUsuario.Correo);
 
                 return Result<object>.Failure("El correo ya existe.");

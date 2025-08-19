@@ -27,22 +27,17 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
-        public async Task AddAsync(Usuario entity)
+        public async Task AddAsync(Usuario usuario)
         {
+            if (usuario == null)
+            {
+                throw new ArgumentNullException(nameof(usuario), "El usuario no puede ser nulo.");
+            }
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();
 
         }
-        public async Task UpdateAsync(Usuario entity)
-        {
-
-        }
-        public async Task DeleteAsync(int id)
-        {
-
-        }
-        public async Task<Usuario> GetByCorreoAsync(string correo)
-        {
-            throw new NotImplementedException();
-        }
+     
         public async Task<bool> ExisteCedulaAsync(string cedula)
         {
             throw new NotImplementedException();
@@ -58,10 +53,6 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
                         return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Correo.Value == correo && u.Contrasena == password);
         }
-        public async Task<Usuario?> GetByNCedulaAsync(string cedula)
-        {
-            throw new NotImplementedException();
-
-        }
+       
     }
 }

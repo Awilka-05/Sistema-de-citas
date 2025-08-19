@@ -52,7 +52,7 @@ builder.Services.AddScoped<IRepository<Lugar, short>, LugarRepository>();
 builder.Services.AddScoped<IRepository<Servicio, short>, ServicioRepository>();
 builder.Services.AddScoped<IRepository<Horario, short>, HorarioRepository>();
 builder.Services.AddScoped<IRepository<ConfiguracionTurno, int>, ConfiguracionTurnoRepository>();
-builder.Services.AddScoped<IRepository<Usuario, int>, UsuarioRepository>();
+
 
 // JWT & Auth
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -60,24 +60,24 @@ builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<UserValidator>();
 builder.Services.AddScoped<UsuarioService>();
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.MapInboundClaims = false; // Mantener los nombres originales de los claims
-        var config = builder.Configuration;
+//builder.Services.AddAuthentication("Bearer")
+//    .AddJwtBearer("Bearer", options =>
+//    {
+//        options.MapInboundClaims = false; // Mantener los nombres originales de los claims
+//        var config = builder.Configuration;
         
-        var key = Encoding.UTF8.GetBytes(config["Jwt:Secret"]!);
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
-        };
-    });
+//        var key = Encoding.UTF8.GetBytes(config["Jwt:Secret"]!);
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+//            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//            ValidAudience = builder.Configuration["Jwt:Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(key)
+//        };
+//    });
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -118,7 +118,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 
