@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
@@ -49,6 +46,22 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         public async Task<bool> ExisteCedulaAsync(string cedula)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> ExisteCorreoAsync(string correo)
+        {
+            throw new NotImplementedException();
+        }
+
+         public async Task<Usuario?> GetByCorreoAndPasswordAsync(string correo, string password)
+        {
+                        return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Correo.Value == correo && u.Contrasena == password);
+        }
+        public async Task<Usuario?> GetByNCedulaAsync(string cedula)
+        {
+            throw new NotImplementedException();
+
         }
     }
 }
