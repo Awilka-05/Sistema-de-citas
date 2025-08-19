@@ -20,8 +20,9 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         public async Task<ConfiguracionTurno?> GetByIdAsync(int id) {
 
             return await _context.ConfiguracionesTurnos
-                          .Include(ct => ct.Horario)
-                          .FirstOrDefaultAsync(ct => ct.TurnoId == id);
+           .Include(c => c.Horario)
+           .Include(c => c.Franjas)
+           .FirstOrDefaultAsync(c => c.TurnoId == id);
 
         }
         public async Task<IEnumerable<ConfiguracionTurno>> GetAllAsync()
