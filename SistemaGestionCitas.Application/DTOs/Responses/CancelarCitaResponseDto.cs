@@ -8,9 +8,6 @@ namespace SistemaGestionCitas.Application.DTOs.Responses
 {
     public class CancelarCitaResponseDto
     {
-        public int IdCita { get; set; }
-        public string EstadoActual { get; set; } = null!;
-        public DateTime FechaCancelacion { get; set; }
-        public string Mensaje { get; set; } = null!;
+        public string Mensaje { get; set; }
     }
 }

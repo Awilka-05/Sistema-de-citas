@@ -26,29 +26,37 @@
             </p>
 
             <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #e5e7eb; border-radius:8px; background-color:#f9fafb;">
-              <tr>
-                <td colspan="2" style="padding:15px; font-weight:bold; color:#1f2937; font-size:16px; border-bottom:1px solid #e5e7eb;">Detalles de tu Cita</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Servicio:</td>
-                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{ServiceName}}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Fecha:</td>
-                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{AppointmentDate}}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Hora:</td>
-                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{AppointmentTime}}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Duración:</td>
-                <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{ServiceDuration}} minutos</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 15px; font-weight:bold; color:#374151;">ID de Cita:</td>
-                <td style="padding:10px 15px; color:#6b7280;">#{{AppointmentId}}</td>
-              </tr>
+                <tr>
+                    <td colspan="2" style="padding:15px; font-weight:bold; color:#1f2937; font-size:16px; border-bottom:1px solid #e5e7eb;">Detalles de tu Cita</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">ID cita:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{IdCita}}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Fecha:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{Fecha}}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Servicio:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{Servicio}}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Precio:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">RD${{Precio}}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Horario:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{HorarioInicio}} - {{HorarioFin}}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151; border-bottom:1px solid #e5e7eb;">Duración:</td>
+                    <td style="padding:10px 15px; color:#6b7280; border-bottom:1px solid #e5e7eb;">{{Duracion}} minutos</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 15px; font-weight:bold; color:#374151;">Lugar:</td>
+                    <td style="padding:10px 15px; color:#6b7280;">{{Lugar}}</td>
+                </tr>
             </table>
 
             <div style="text-align:center; margin-top:30px;">
@@ -56,12 +64,6 @@
                 CANCELAR CITA
               </a>
             </div>
-          </td>
-        </tr>
-
-        <tr>
-          <td style="background-color:#f9fafb; text-align:center; padding:20px; font-size:12px; color:#9ca3af;">
-            © 2025 Sistema de Citas. Proyecto final programacion 2.
           </td>
         </tr>
 

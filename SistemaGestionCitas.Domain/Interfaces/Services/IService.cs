@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaGestionCitas.Domain.Result_Pattern;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    public interface IService<T> where T : class
+    public interface IService<T,Ttype> where T : class
     {
-        Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
-        
+        Task<Result<T>> GetByIdAsync(Ttype id);
+        Task<Result<IEnumerable<T>>> GetAllAsync();
+        Task<Result<T>> AddAsync(T entity);
+        Task<Result<T>> UpdateAsync(T entity);
+ 
     }
 }

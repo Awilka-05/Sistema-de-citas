@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Result_Pattern;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
-    internal interface IReservarCitaService
+    public interface IReservarCitaService
     {
+        Task<Result<Cita>> ReservarCitaAsync(Usuario usuario, Cita cita);
     }
 }

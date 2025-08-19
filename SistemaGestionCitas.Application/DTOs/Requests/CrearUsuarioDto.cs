@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SistemaGestionCitas.Domain.Enums;
 
 namespace SistemaGestionCitas.Application.DTOs.Requests
 {
-    public class UsuarioDto
+    public class CrearUsuarioDto
     {
         [Required(ErrorMessage = "El nombre es requerido")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "El nombre usuario solo puede contener letras y espacios.")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "El nombre debe tener entre 2 y 100 caracteres")]
         public string Nombre { get; set; } = null!;
         [Required(ErrorMessage = "La fecha de nacimiento es necesaria")]

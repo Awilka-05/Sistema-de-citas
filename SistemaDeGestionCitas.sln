@@ -1,13 +1,12 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionCitas.API", "SistemaGestionCitas.API\SistemaGestionCitas.API.csproj", "{3DF892F1-C2F2-7D9A-1C2F-B0F9D02538FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionCitas.Application", "SistemaGestionCitas.Application\SistemaGestionCitas.Application.csproj", "{52B33FDA-2C45-FC2D-4798-346786BDA608}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionCitas.Domain", "SistemaGestionCitas.Domain\SistemaGestionCitas.Domain.csproj", "{565BE6BA-F9E7-BC88-95CD-90CA067EED8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionCitas.Application", "SistemaGestionCitas.Application\SistemaGestionCitas.Application.csproj", "{52B33FDA-2C45-FC2D-4798-346786BDA608}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionCitas.Infrastructure", "SistemaGestionCitas.Infrastructure\SistemaGestionCitas.Infrastructure.csproj", "{7A13D188-10DA-5E23-B7E7-F0DB62BCEAC1}"
 EndProject
@@ -21,14 +20,14 @@ Global
 		{3DF892F1-C2F2-7D9A-1C2F-B0F9D02538FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DF892F1-C2F2-7D9A-1C2F-B0F9D02538FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DF892F1-C2F2-7D9A-1C2F-B0F9D02538FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Release|Any CPU.Build.0 = Release|Any CPU
 		{565BE6BA-F9E7-BC88-95CD-90CA067EED8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{565BE6BA-F9E7-BC88-95CD-90CA067EED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{565BE6BA-F9E7-BC88-95CD-90CA067EED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{565BE6BA-F9E7-BC88-95CD-90CA067EED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B33FDA-2C45-FC2D-4798-346786BDA608}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A13D188-10DA-5E23-B7E7-F0DB62BCEAC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A13D188-10DA-5E23-B7E7-F0DB62BCEAC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A13D188-10DA-5E23-B7E7-F0DB62BCEAC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
