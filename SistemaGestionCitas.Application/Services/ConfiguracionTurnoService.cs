@@ -47,22 +47,25 @@ namespace SistemaGestionCitas.Application.Services
 
         public async Task<Result<ConfiguracionTurno>> AddAsync(ConfiguracionTurno entity)
         {
-            try
-            {
-                var horarioBase = await _context.Horarios.FindAsync(entity.HorariosId);
-               
-                entity.Horario = horarioBase;
 
-                entity.Franjas = GenerarFranjas(horarioBase.HoraInicio, horarioBase.HoraFin, entity.DuracionMinutos);
+            bool Yahayenesafecha = await _context.ConfiguracionesTurnos
+           .AnyAsync(ct => entity.FechaInicio <= ct.FechaFin &&
+                        entity.FechaFin >= ct.FechaInicio);
 
-                await _turnoRepository.AddAsync(entity);
+            if (Yahayenesafecha)
+                return Result<ConfiguracionTurno>.Failure("Ya existe una configuración de turno en esa fecha");
 
-                return Result<ConfiguracionTurno>.Success(entity);
-            }
-            catch (Exception ex)
-            {
-                return Result<ConfiguracionTurno>.Failure($"Error al agregar turno: {ex.Message}");
-            }
+            // Validar que el horario exista
+            var horarioBase = await _context.Horarios.FindAsync(entity.HorariosId);
+            if (horarioBase == null)
+                return Result<ConfiguracionTurno>.Failure("El horario seleccionado no existe.");
+
+            entity.Horario = horarioBase;
+            entity.Franjas = GenerarFranjas(horarioBase.HoraInicio, horarioBase.HoraFin, entity.DuracionMinutos);
+
+            await _turnoRepository.AddAsync(entity);
+
+            return Result<ConfiguracionTurno>.Success(entity);
         }
 
         // Método privado para generar franjas

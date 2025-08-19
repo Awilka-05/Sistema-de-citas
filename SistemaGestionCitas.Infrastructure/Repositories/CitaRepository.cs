@@ -85,5 +85,12 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
              return await _context.Citas.CountAsync(c => c.TurnoId == turnoId);
         }
 
+        public async Task<int> CountByFranjaIdAsync(int franjaId, int turnoId, DateTime fecha)
+        {
+            return await _context.Citas
+                .CountAsync(c => c.FranjaId == franjaId &&
+                                 c.TurnoId == turnoId &&
+                                 c.FechaCita.Date == fecha.Date);
+        }
     }
 }

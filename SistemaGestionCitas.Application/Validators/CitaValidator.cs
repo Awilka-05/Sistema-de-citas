@@ -32,33 +32,18 @@ namespace SistemaGestionCitas.Application.Validators
                 _logger.LogError("Fallo en la validación de la cita. El turno con ID {TurnoId} no fue encontrado.", entity.TurnoId);
                 return Result<Cita>.Failure("El turno seleccionado no es válido.");
             }
+            var citasExistentesEnFranja = await _citaRepository.CountByFranjaIdAsync(
+                entity.FranjaId,
+                entity.TurnoId,
+                entity.FechaCita.Date
+            );
 
-            DateTime fechaYHoraInicioNuevaCita = turno.FechaInicio.Add(turno.Horario.HoraInicio.ToTimeSpan());
-            DateTime fechaYHoraFinNuevaCita = fechaYHoraInicioNuevaCita.AddMinutes(turno.DuracionMinutos);
-
-            var citasConfirmadasDelUsuario = await _citaRepository.GetCitasByUsuarioAsync(entity.IdUsuario);
-
-            // Verificar si alguna cita existente del usuario se solapa con la nueva.
-            bool seSolapan = citasConfirmadasDelUsuario.Any(citaExistente =>
+            if (citasExistentesEnFranja >= turno.CantidadEstaciones)
             {
-                DateTime fechaYHoraInicioExistente = citaExistente.ConfiguracionTurno.FechaInicio.Add(citaExistente.ConfiguracionTurno.Horario.HoraInicio.ToTimeSpan());
-                DateTime fechaYHoraFinExistente = fechaYHoraInicioExistente.AddMinutes(citaExistente.ConfiguracionTurno.DuracionMinutos);
+                _logger.LogWarning("Fallo en la validación de la cita. La franja {FranjaId} del turno {TurnoId} ha alcanzado su límite de {CantidadEstaciones} citas.",
+                    entity.FranjaId, entity.TurnoId, turno.CantidadEstaciones);
 
-                return (fechaYHoraInicioNuevaCita < fechaYHoraFinExistente) && (fechaYHoraFinNuevaCita > fechaYHoraInicioExistente);
-            });
-
-            if (seSolapan)
-            {
-                _logger.LogWarning("Fallo al crear una cita. El usuario {IdUsuario} ya tiene otra cita agendada con este horario.", entity.IdUsuario);
-                return Result<Cita>.Failure("Ya tienes una cita agendada en un horario que se solapa con este.");
-            }
-
-            var citasExistentes = await _citaRepository.CountByTurnoIdAsync(entity.TurnoId);
-
-            if (citasExistentes >= turno.CantidadEstaciones)
-            {
-                _logger.LogWarning("Fallo en la validación de la cita. El turno con ID {TurnoId} ha alcanzado el límite de citas ({CantidadEstaciones}).", entity.TurnoId, turno.CantidadEstaciones);
-                return Result<Cita>.Failure("No hay estaciones disponibles para este turno.");
+                return Result<Cita>.Failure("No hay estaciones disponibles para esta franja horaria.");
             }
 
             return Result<Cita>.Success(new Cita());

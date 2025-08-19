@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+
+using Microsoft.EntityFrameworkCore;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
+using SistemaGestionCitas.Domain.Value_Objects;
 using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 
 namespace SistemaGestionCitas.Infrastructure.Repositories
@@ -24,35 +26,42 @@ namespace SistemaGestionCitas.Infrastructure.Repositories
         public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             return await _context.Usuarios.ToListAsync();
+
         }
         public async Task AddAsync(Usuario entity)
         {
              _context.Usuarios.Add(entity);
             await _context.SaveChangesAsync();
+
         }
-        public async Task UpdateAsync(Usuario entity)
+        public async Task AddAsync(Usuario usuario)
         {
-             _context.Usuarios.Update(entity);
-             await _context.SaveChangesAsync();
+
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();
+
         }
-        public async Task DeleteAsync(int id)
+     
+        public async Task<bool> ExisteCedulaAsync(Cedula cedula)
         {
-            var usuario = await GetByIdAsync(id);
-            if (usuario != null)
-            {
-                _context.Usuarios.Remove(usuario);
-                await _context.SaveChangesAsync();
-            }
+
+            return await _context.Usuarios.AnyAsync(u => u.Cedula.Value == cedula.Value);
+
         }
-        public async Task<Usuario> GetByCorreoAsync(string correo)
+
+        public async Task<bool> ExisteCorreoAsync(Correo correo)
         {
-            return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Correo.Value == correo);
+            return await _context.Usuarios.AnyAsync(u => u.Correo.Value == correo.Value);
+
         }
-        public async Task<bool> ExisteCedulaAsync(string cedula)
+
+         public async Task<Usuario?> GetByCorreoAndPasswordAsync(string correo, string password)
         {
-            return await _context.Usuarios
-                .AnyAsync(u => u.Cedula.Value == cedula);
+
+                        return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Correo.Value == correo && u.Contrasena == password);
+
         }
+       
     }
 }

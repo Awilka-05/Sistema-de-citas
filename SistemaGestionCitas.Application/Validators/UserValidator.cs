@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SistemaGestionCitas.Application.DTOs.Requests;
 using SistemaGestionCitas.Domain.Interfaces.Repositories;
 using SistemaGestionCitas.Domain.Result_Pattern;
+using SistemaGestionCitas.Domain.Value_Objects;
 
 namespace SistemaGestionCitas.Application.Validators
 {
@@ -19,25 +20,41 @@ namespace SistemaGestionCitas.Application.Validators
 
         public async Task<Result<object>> ValidarAsync(CrearUsuarioDto crearUsuario)
         {
-            if (await _usuarioRepository.ExisteCedulaAsync(crearUsuario.Cedula))
+            // Validar con los vo
+
+            var cedulaResult = Cedula.Create(crearUsuario.Cedula);
+            if (!cedulaResult.IsSuccess)
+                return Result<object>.Failure(cedulaResult.Error);
+
+            var nombreResult = Nombre.Create(crearUsuario.Nombre);
+            if (!nombreResult.IsSuccess)
+                return Result<object>.Failure(nombreResult.Error);
+
+            
+            var correoResult = Correo.Create(crearUsuario.Correo);
+            if (!correoResult.IsSuccess)
+                return Result<object>.Failure(correoResult.Error);
+
+            // Validar existencia en bd
+            if (await _usuarioRepository.ExisteCedulaAsync(cedulaResult.Value))
             {
                 _logger.LogError(
-                    "Error al crear un nuevo usuario. (La cedula {userCreate.Cedula} ya existe)",
+                    "Error al crear un nuevo usuario. (La cédula {Cedula} ya existe)",
                     crearUsuario.Cedula);
 
-                return Result<object>.Failure("La cedula ya existe.");
+                return Result<object>.Failure("La cédula ya existe.");
             }
 
-            var usuarioExistenteCorreo = await _usuarioRepository.GetByCorreoAsync(crearUsuario.Correo);
-            if (usuarioExistenteCorreo != null)
+            if (await _usuarioRepository.ExisteCorreoAsync(correoResult.Value))
             {
                 _logger.LogError(
-                    "Error al crear un nuevo usuario. (El correo {userCreate.Email} ya existe)",
+                    "Error al crear un nuevo usuario. (El correo {Correo} ya existe)",
                     crearUsuario.Correo);
 
                 return Result<object>.Failure("El correo ya existe.");
             }
 
+            // Todo OK
             return Result<object>.Success(new object());
         }
     }

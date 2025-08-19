@@ -34,14 +34,14 @@ namespace SistemaGestionCitas.Application.Validators
             if (fechaFin.HasValue && fechaInicio.HasValue)
             {
          
-                if (fechaFin.Value <= fechaInicio.Value)
+                if (fechaFin.Value < fechaInicio.Value)
                 {
                     return new ValidationResult("La fecha de finalización debe ser posterior a la fecha de inicio.", new[] { validationContext.MemberName! });
                 }
 
-                if ((fechaFin.Value - fechaInicio.Value).TotalDays > 6)
+                if ((fechaFin.Value - fechaInicio.Value).TotalDays > 5)
                 {
-                    return new ValidationResult("El rango de fechas no puede ser mayor a 6 días.", new[] { validationContext.MemberName! });
+                    return new ValidationResult("El rango de fechas no puede ser mayor a 5 días.", new[] { validationContext.MemberName! });
                 }
             }
 
