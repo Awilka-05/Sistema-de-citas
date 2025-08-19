@@ -23,5 +23,12 @@ namespace SistemaGestionCitas.Application.Services
         {
             return await _usuarioRepository.GetAllAsync();
         }
+
+        public async Task <Usuario?> GetByCorreoAndPasswordAsync(string correo, string password)
+        {
+            if (string.IsNullOrEmpty(correo) || string.IsNullOrEmpty(password))
+                return null; 
+            return await _usuarioRepository.GetByCorreoAndPasswordAsync(correo, password);
+        }
     }
 }

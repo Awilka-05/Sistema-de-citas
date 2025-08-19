@@ -17,6 +17,8 @@ using SistemaGestionCitas.Infrastructure.Persistence.BdContext;
 using SistemaGestionCitas.Infrastructure.Repositories;
 using SistemaGestionCitas.Infrastructure.Repositories.Logger;
 using SistemaGestionCitas.Infrastructure.Services.Correo.Strategy;
+using SistemaGestionCitas.Domain.Value_Objects;
+using SistemaGestionCitas.Application.DTOs.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,9 @@ builder.Services.AddScoped<IReservarCitaService, ReservarCita>();
 builder.Services.AddScoped<ICancelarCitaService, CancelarCita>();
 builder.Services.AddScoped<IConfiguracionTurnoService, ConfiguracionTurnoService>();
 builder.Services.AddScoped<IHorarioService, HorarioService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IRegistrarUsuario, RegistrarUsuario>();
+
 
 // Registro de Validadores
 builder.Services.AddScoped<ICitaValidator, CitaValidator>();
@@ -53,11 +58,19 @@ builder.Services.AddScoped<IRepository<Servicio, short>, ServicioRepository>();
 builder.Services.AddScoped<IRepository<Horario, short>, HorarioRepository>();
 builder.Services.AddScoped<IRepository<ConfiguracionTurno, int>, ConfiguracionTurnoRepository>();
 
+TypeAdapterConfig<CrearUsuarioDto, Usuario>.NewConfig()
+    .Map(dest => dest.Nombre, src => Nombre.Create(src.Nombre).Value)
+    .Map(dest => dest.Cedula, src => Cedula.Create(src.Cedula).Value)
+    .Map(dest => dest.Correo, src => Correo.Create(src.Correo).Value)
+    .Map(dest => dest.Telefono, src => src.Telefono)
+    .Map(dest => dest.Contrasena, src => src.Contrasena)
+    .Map(dest => dest.FechaNacimiento, src => src.FechaNacimiento)
+    .Map(dest => dest.Rol, src => src.Rol);
+
 
 // JWT & Auth
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
-builder.Services.AddScoped<UserValidator>();
 builder.Services.AddScoped<UsuarioService>();
 
 //builder.Services.AddAuthentication("Bearer")

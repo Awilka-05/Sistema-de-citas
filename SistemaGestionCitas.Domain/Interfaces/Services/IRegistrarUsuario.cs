@@ -1,9 +1,10 @@
 ﻿using SistemaGestionCitas.Domain.Entities;
+using SistemaGestionCitas.Domain.Result_Pattern;
 
 namespace SistemaGestionCitas.Domain.Interfaces.Services
 {
     public interface IRegistrarUsuario
     {
-        Task<Usuario> RegistrarUsuarioAsync(Usuario usuario);
+        Task<Result<Usuario>> RegistrarUsuarioAsync(Usuario usuario);
     }
 }

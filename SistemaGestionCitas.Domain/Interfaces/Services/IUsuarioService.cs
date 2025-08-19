@@ -7,5 +7,7 @@ namespace SistemaGestionCitas.Domain.Interfaces.Services
     {
         Task<Usuario?> GetByIdAsync(int id);
         Task<IEnumerable<Usuario>> GetAllAsync();
+
+        Task<Usuario?> GetByCorreoAndPasswordAsync(string correo, string password);
     }
 }

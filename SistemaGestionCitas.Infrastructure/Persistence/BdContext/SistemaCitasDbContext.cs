@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaGestionCitas.Domain.Entities;
 using SistemaGestionCitas.Domain.Value_Objects;
 
@@ -36,6 +38,33 @@ namespace SistemaGestionCitas.Infrastructure.Persistence.BdContext
             modelBuilder.Entity<Usuario>().Property(u => u.Activo).HasColumnName("activo");
 
             // Conversiones de Value Objects
+            
+        var cedulaConverter = new ValueConverter<Cedula, string>(
+            v => v.Value,            // Convierte de Cedula a string (para guardar en la DB)
+            v => Cedula.Create(v).Value // Convierte de string a Cedula (al leer de la DB)
+        );
+
+            // Aplica el conversor a la propiedad Cedula de la entidad Usuario
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Cedula)
+                .HasConversion(cedulaConverter);
+
+            // Repite el proceso para Nombre y Correo si también los tienes mapeados en la DB
+            var nombreConverter = new ValueConverter<Nombre, string>(
+                v => v.Value,
+                v => Nombre.Create(v).Value
+            );
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Nombre)
+                .HasConversion(nombreConverter);
+
+            var correoConverter = new ValueConverter<Correo, string>(
+                v => v.Value,
+                v => Correo.Create(v).Value
+            );
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Correo)
+                .HasConversion(correoConverter);
             modelBuilder.Entity<Usuario>().Property(u => u.Nombre).HasConversion(v => v.Value, v => new Nombre(v));
             modelBuilder.Entity<Usuario>().Property(u => u.Cedula).HasConversion(v => v.Value, v => new Cedula(v));
             modelBuilder.Entity<Usuario>().Property(u => u.Correo).HasConversion(v => v.Value, v => new Correo(v));
