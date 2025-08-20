@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTRANT - Agendar Cita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/usuario.css">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <i class="fas fa-infinity"></i> INTRANT
+                <small>Sistema de Citas</small>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user"></i> Juan Pérez
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <!-- Cita Actual (si existe) -->
+        <div class="alert alert-success alert-dismissible fade show" id="cita-actual" style="display: none;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5><i class="fas fa-check-circle"></i> Cita Confirmada</h5>
+                    <p class="mb-1"><strong>Servicio:</strong> <span id="servicio-actual"></span></p>
+                    <p class="mb-1"><strong>Fecha y Hora:</strong> <span id="fecha-actual"></span></p>
+                    <p class="mb-0"><strong>Lugar:</strong> <span id="lugar-actual"></span></p>
+                </div>
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="cancelarCita()">
+                    <i class="fas fa-times"></i> Cancelar Cita
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Información de Contacto -->
+            <div class="col-md-4">
+                <div class="card info-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Información del Usuario</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="user-info">
+                            <p><strong>Nombre:</strong> Juan Pérez García</p>
+                            <p><strong>Email:</strong> juan@correo.com</p>
+                            <p><strong>Telefono:</strong> 809-123-4567</p>
+                            <p><strong>Cedula:</strong> 00765432567</p>
+                        </div>
+                        
+                        <div class="service-selection mt-4">
+                            <h6><i class="fas fa-cogs"></i> Seleccionar Servicio</h6>
+                            <select class="form-select" id="servicio-select">
+                                <option value="">Seleccione un servicio</option>
+                                <option value="renovacion-licencia">Renovación de Licencia</option>
+                                <option value="registro-vehicular">Registro Vehicular</option>
+                                <option value="inspeccion">Inspección Vehicular</option>
+                            </select>
+                        </div>
+
+                        <div class="location-selection mt-3">
+                            <h6><i class="fas fa-map-marker-alt"></i> Seleccionar Lugar</h6>
+                            <select class="form-select" id="lugar-select">
+                                <option value="">Seleccione un lugar</option>
+                            </select>
+                        </div>
+
+                        <div class="alert alert-info mt-3">
+                            <small>
+                                <i class="fas fa-calendar-check"></i>
+                                Seleccione primero el servicio y lugar
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario de Disponibilidad -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calendar-alt"></i> Horarios Disponibles</h5>
+                        <div class="date-navigation d-flex justify-content-between align-items-center">
+                            <button class="btn btn-outline-secondary btn-sm" id="prev-week">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="week-display" id="week-display"></span>
+                            <button class="btn btn-outline-secondary btn-sm" id="next-week">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0" id="calendar-container">
+                        <div class="calendar-placeholder">
+                            <div class="text-center p-5 text-muted">
+                                <i class="fas fa-calendar-times fa-3x mb-3"></i>
+                                <h5>Seleccione un servicio y lugar</h5>
+                                <p>Para ver los horarios disponibles, primero debe seleccionar el servicio y lugar de su preferencia.</p>
+                            </div>
+                        </div>
+
+                        <!-- Calendario que se mostrará dinámicamente -->
+                        <div class="card-body p-0" id="calendar-container">
+                        <div class="calendar-placeholder" id="calendar-placeholder">
+                            <div class="text-center p-5 text-muted">
+                                <i class="fas fa-calendar-times fa-3x mb-3"></i>
+                                <h5>Cargando horarios...</h5>
+                            </div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid" style="display: none;">
+                            <!-- Calendario que se mostrará dinámicamente -->
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leyenda -->
+                <div class="card mt-3">
+                    <div class="card-body py-2">
+                        <div class="legend d-flex justify-content-center gap-4">
+                            <span class="legend-item">
+                                <span class="legend-color available"></span> Disponible
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color occupied"></span> Ocupado
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color selected"></span> Seleccionado
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-calendar-check"></i> Confirmar Cita
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="confirmation-details">
+                        <h6>Detalles de la cita:</h6>
+                        <p><strong>Servicio:</strong> <span id="confirm-servicio"></span></p>
+                        <p><strong>Lugar:</strong> <span id="confirm-lugar"></span></p>
+                        <p><strong>Fecha:</strong> <span id="confirm-fecha"></span></p>
+                        <p><strong>Hora:</strong> <span id="confirm-hora"></span></p>
+                        
+                        <div class="alert alert-warning">
+                            <small>
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Por favor, recuerde llegar a tiempo.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btn-confirmar">
+                        <i class="fas fa-check"></i> Confirmar Cita
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cancelación -->
+    <div class="modal fade" id="cancelModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-times-circle text-danger"></i> Cancelar Cita
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea cancelar su cita?</p>
+                    <div class="alert alert-danger">
+                        <small>Esta acción no se puede deshacer.</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, mantener cita</button>
+                    <button type="button" class="btn btn-danger" id="btn-cancelar-confirmar">
+                        <i class="fas fa-trash"></i> Sí, cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="api/CitaUsuario.js"></script>
+     <script src="api/TurnoUsuario.js"></script>
+   <script src="api/ServicioUsuario.js"></script>
+    <script src="api/lugarUsuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/usuario.js"></script>
+</body>
+</html>

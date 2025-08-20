@@ -1,0 +1,97 @@
+/* Importar estilos base */
+@import url('style.css');
+
+/* Estilos específicos para el formulario de registro */
+.register-form {
+    max-width: 550px !important;
+    padding: 2.5rem !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+/* Contenedor de campos en dos columnas */
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Campos de ancho completo */
+.form-group.full-width {
+    margin-bottom: 1.5rem;
+}
+
+/* Ajustar espaciado para formulario más compacto */
+.register-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.register-form .form-row:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
+/* Estilos para hints más compactos */
+.password-hint,
+.cedula-hint {
+    display: block;
+    color: #888;
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+    font-style: italic;
+}
+
+/* Términos y condiciones más compactos */
+.register-form .form-terms {
+    margin: 1.2rem 0;
+    font-size: 0.8rem;
+}
+
+.register-form .terms-check {
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.3;
+}
+
+/* Botón más compacto */
+.register-form .btn-primary {
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Footer más compacto */
+.register-form .auth-footer {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+/* Responsive para formulario de registro */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .form-row .form-group {
+        margin-bottom: 1.2rem;
+    }
+    
+    .register-form {
+        max-width: 100% !important;
+        padding: 2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-form {
+        padding: 1.5rem !important;
+    }
+    
+    .register-form .form-terms {
+        font-size: 0.75rem;
+    }
+}

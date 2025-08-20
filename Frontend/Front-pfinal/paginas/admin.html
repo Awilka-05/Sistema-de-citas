@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTRANT - Panel Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4><i class="fas fa-infinity"></i> INTRANT</h4>
+            <p>Panel Administrativo</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#citas" class="nav-item active" data-section="citas">
+                <i class="fas fa-calendar-check"></i> Citas Agendadas
+            </a>
+            <a href="#configuracion" class="nav-item" data-section="configuracion">
+                <i class="fas fa-cog"></i> Configuración de Turnos
+            </a>
+            <a href="#servicios" class="nav-item" data-section="servicios">
+                <i class="fas fa-list"></i> Servicios
+            </a>
+            <a href="#lugares" class="nav-item" data-section="lugares">
+                <i class="fas fa-map-marker-alt"></i> Lugares
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="login.html" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="content-header">
+            <h2 id="section-title">Citas Agendadas</h2>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="btn-nueva-configuracion">
+                    <i class="fas fa-plus"></i> Nueva Configuración
+                </button>
+            </div>
+        </div>
+
+        <!-- Citas Agendadas Section -->
+        <div id="citas-section" class="content-section active">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-calendar-alt"></i> Citas del Sistema</h5>
+                    <div class="card-tools">
+                        <input type="date" class="form-control form-control-sm" id="filtro-fecha">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Servicio</th>
+                                    <th>Lugar</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="citas-table">
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                        </div>
+                                    </td>
+                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración Section -->
+        <div id="configuracion-section" class="content-section">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-clock"></i> Configuraciones de Turnos Activas</h5>
+                        </div>
+                        <div class="card-body" id="lista-configuraciones">
+                            <div class="text-center text-muted" id="loading-message">Cargando configuraciones...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-plus-circle"></i> Nueva Configuración</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="form-configuracion">
+                                <div class="mb-3">
+                                    <label for="fecha-inicio" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" id="fecha-inicio" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha-fin" class="form-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" id="fecha-fin" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hora-inicio" class="form-label">Hora Inicio</label>
+                                    <input type="time" class="form-control" id="hora-inicio" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hora-fin" class="form-label">Hora Fin</label>
+                                    <input type="time" class="form-control" id="hora-fin" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="duracion-cita" class="form-label">Duración de la Cita (minutos)</label>
+                                    <input type="number" class="form-control" id="duracion-cita" min="5" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estaciones-disponibles" class="form-label">Estaciones Disponibles</label>
+                                    <input type="number" class="form-control" id="estaciones-disponibles" min="1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion-config" class="form-label">Descripción del Horario</label>
+                                    <textarea class="form-control" id="descripcion-config" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-save"></i> Guardar Configuración
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servicios Section -->
+        <div id="servicios-section" class="content-section">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                       <div class="card-header">
+                        <h5><i class="fas fa-list"></i> Servicios Disponibles</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre del Servicio</th>
+                                        <th>Precio</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="servicios-table-body">
+                                    <!-- Los datos de la API se cargarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                       <div class="card-header">
+                        <h5 id="form-title"><i class="fas fa-plus-circle"></i> Nuevo Servicio</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="servicio-form">
+                            <input type="hidden" id="servicio-id">
+                            <div class="mb-3">
+                                <label for="servicio-nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="servicio-nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="servicio-precio" class="form-label">Precio</label>
+                                <input type="number" class="form-control" id="servicio-precio" min="0" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-save"></i> <span id="form-button-text">Guardar</span>
+                            </button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lugares Section -->
+        <div id="lugares-section" class="content-section">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-map-marker-alt"></i> Lugares Disponibles</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre del Lugar</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lugares-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 id="form-title"><i class="fas fa-plus-circle"></i> Nuevo Lugar</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="lugar-form">
+                            <div class="mb-3">
+                                <label for="lugar-nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="lugar-nombre" required>
+                                <input type="hidden" id="lugar-id">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-save"></i> <span id="form-button-text">Guardar</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="api/Cita.js"></script>
+    <script src="api/Servicio.js"></script>
+    <script src="api/Lugar.js"></script>
+      <script src="api/Turno.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

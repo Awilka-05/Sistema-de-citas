@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTRANT - Registrarse</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/registro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-image">
+                <div class="image-overlay"></div>
+                <img src="imagenes/intrant2.jpg" alt="Sistema INTRANT">
+                <div class="image-content">
+                    <div class="infinity-logo"></div>
+                    <h2>INTRANT</h2>
+                    <p>Sistema integral de gestión vehicular y licencias de conducir para una movilidad moderna y segura.</p>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-form register-form">
+                <h2>Crear una Cuenta</h2>
+                <p class="auth-subtitle">Complete el formulario para registrarse en el sistema</p>
+                
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez García" maxlength="100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cedula">Cédula de identidad *</label>
+                        <input type="text" id="cedula" name="cedula" placeholder="Ej: 00112345678" maxlength="11" required>
+                        <small class="cedula-hint">Solo números sin guiones</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de nacimiento *</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico *</label>
+                        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" maxlength="150" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 809-123-4567" maxlength="20">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contrasena">Contraseña *</label>
+                        <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Registrarse</button>
+                    
+                    <div class="auth-footer">
+                        ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Solo permitir números en cédula (sin formatear)
+        document.getElementById('cedula').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+        });
+
+        // Formatear teléfono automáticamente
+        document.getElementById('telefono').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 3) {
+                value = value.substring(0, 3) + '-' + value.substring(3);
+            }
+            if (value.length >= 7) {
+                value = value.substring(0, 7) + '-' + value.substring(7);
+            }
+            e.target.value = value;
+        });
+
+        // Validar edad mínima (18 años)
+        document.getElementById('fecha_nacimiento').addEventListener('change', function(e) {
+            const birthDate = new Date(e.target.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age < 18) {
+                alert('Debe ser mayor de 18 años para registrarse');
+                e.target.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
